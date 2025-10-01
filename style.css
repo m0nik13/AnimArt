@@ -130,6 +130,8 @@ body {
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
     border-left: 3px solid transparent;
+    display: flex;
+    gap: 15px;
 }
 
 .anime-card:hover {
@@ -142,9 +144,25 @@ body {
     transform: translateX(2px);
 }
 
+.anime-poster {
+    flex-shrink: 0;
+    width: 100px;
+    height: 150px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.anime-poster img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .anime-info {
     display: flex;
     flex-direction: column;
+    flex: 1;
 }
 
 .anime-title {
@@ -215,6 +233,16 @@ body {
     .nav-item {
         font-size: 0.9rem;
         padding: 5px 8px;
+    }
+    
+    .anime-card {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .anime-poster {
+        width: 100%;
+        height: 200px;
     }
 }
 
