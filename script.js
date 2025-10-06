@@ -56,5 +56,5 @@
         });
     }, 300);
     
-    console.log('AnimeHub завантажено успішно!');
+    console.log('AnimArt завантажено успішно!');
 });

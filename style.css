@@ -10,14 +10,19 @@ body {
     color: #e0e0e0;
     background-color: #121212;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .app-container {
     display: flex;
-    min-height: 100vh;
+    flex: 1;
     max-width: 1200px;
     margin: 0 auto;
     background-color: #1e1e1e;
+    width: 100%;
+    position: relative;
 }
 
 /* Шапка */
@@ -33,6 +38,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 70px;
 }
 
 .logo-container {
@@ -79,12 +85,13 @@ body {
 .sidebar {
     width: 220px;
     background-color: #252525;
-    padding: 80px 0 20px 20px;
+    padding: 20px 0 20px 20px;
     position: fixed;
-    top: 0;
+    top: 70px;
     bottom: 0;
     left: 0;
     overflow-y: auto;
+    z-index: 90;
 }
 
 .sidebar-title {
@@ -122,8 +129,11 @@ body {
 /* Основний контент */
 .content {
     flex: 1;
-    padding: 80px 20px 20px 240px;
+    padding: 20px 20px 20px 240px;
     width: 100%;
+    min-height: calc(100vh - 70px);
+    margin-top: 70px;
+    box-sizing: border-box;
 }
 
 .anime-list {
@@ -221,6 +231,88 @@ body {
     overflow: hidden;
 }
 
+/* Футер */
+.footer {
+    background-color: #1a1a1a;
+    border-top: 1px solid #333;
+    padding: 30px 0 20px;
+    margin-top: auto;
+    position: relative;
+    z-index: 100;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-section h3 {
+    color: #bb86fc;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.footer-links {
+    list-style: none;
+}
+
+.footer-links li {
+    margin-bottom: 8px;
+}
+
+.footer-links a {
+    color: #a0a0a0;
+    text-decoration: none;
+    transition: color 0.3s;
+    font-size: 0.95rem;
+}
+
+.footer-links a:hover {
+    color: #bb86fc;
+}
+
+.footer-social {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.social-link {
+    color: #a0a0a0;
+    font-size: 1.2rem;
+    transition: color 0.3s;
+}
+
+.social-link:hover {
+    color: #bb86fc;
+}
+
+.footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 20px 0;
+    border-top: 1px solid #333;
+    margin-top: 30px;
+    text-align: center;
+    color: #a0a0a0;
+    font-size: 0.9rem;
+}
+
+.footer-bottom p {
+    margin: 5px 0;
+}
+
 /* Адаптивність */
 @media (max-width: 768px) {
     .app-container {
@@ -230,11 +322,16 @@ body {
     .sidebar {
         position: static;
         width: 100%;
-        padding: 70px 15px 15px;
+        padding: 20px 15px 15px;
+        top: auto;
+        bottom: auto;
     }
     
     .content {
         padding: 20px 15px;
+        margin-top: 0;
+        min-height: auto;
+        margin-left: 0;
     }
     
     .main-nav {
@@ -258,7 +355,16 @@ body {
 
     .logo {
         height: 30px;
-    }   
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 25px;
+    }
+    
+    .footer-section {
+        min-width: 100%;
+    }
 }
 
 @media (max-width: 480px) {
@@ -266,6 +372,8 @@ body {
         flex-direction: column;
         gap: 10px;
         padding: 10px 15px;
+        height: auto;
+        position: relative;
     }
     
     .app-title {
@@ -283,5 +391,39 @@ body {
     
     .logo {
         height: 25px;
+    }
+    
+    .footer {
+        padding: 25px 0 15px;
+    }
+    
+    .footer-content {
+        padding: 0 15px;
+    }
+    
+    .footer-bottom {
+        padding: 15px 15px 0;
+    }
+    
+    .content {
+        padding: 20px 15px;
+        margin-top: 0;
+    }
+    
+    .sidebar {
+        padding: 15px 15px 15px;
+    }
+}
+
+@media (min-width: 769px) {
+    .sidebar {
+        height: calc(100vh - 70px);
+        overflow-y: auto;
+    }
+    
+    .sidebar::after {
+        content: '';
+        display: block;
+        height: 20px;
     }
 }
