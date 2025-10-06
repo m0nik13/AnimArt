@@ -1,7 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,11 +14,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "site.js",
+              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\wwwroot\\js\\site.js",
+              "RelativeDocumentMoniker": "AnimArt\\wwwroot\\js\\site.js",
+              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\wwwroot\\js\\site.js*",
+              "RelativeToolTip": "AnimArt\\wwwroot\\js\\site.js*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-10-06T05:59:04.781Z",
+              "EditorCaption": ""
             }
           ]
         }
