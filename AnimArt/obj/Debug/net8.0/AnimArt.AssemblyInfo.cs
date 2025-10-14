@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AnimArt")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4c5a95d692719a44aa41e91fcb8b6349eec1b87c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e93eb9b9f90352788aa12bdcb57a633b2d910ed8")]
 [assembly: System.Reflection.AssemblyProductAttribute("AnimArt")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AnimArt")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -1,4 +1,6 @@
-﻿namespace AnimArt.Entities
+﻿using AnimArt.Repositories;
+
+namespace AnimArt.Entities
 {
     public class Review
     {
@@ -16,5 +18,15 @@
         // Навігаційні властивості
         public virtual User User { get; set; }
         public virtual Anime Anime { get; set; }
+    }
+    namespace AnimArt.Repositories
+    {
+        public interface IReviewRepository : IRepository<Review>
+        {
+            Task<IEnumerable<Review>> GetByAnimeIdAsync(int animeId);
+            Task<IEnumerable<Review>> GetByUserIdAsync(int userId);
+            Task<IEnumerable<Review>> GetTopRatedReviewsAsync(int animeId, int count);
+            Task<int> GetReviewCountAsync(int animeId);
+        }
     }
 }

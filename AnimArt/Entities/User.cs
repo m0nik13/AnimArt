@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewEngines;
+﻿using AnimArt.Repositories;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 
 namespace AnimArt.Entities
 {
@@ -24,5 +25,13 @@ namespace AnimArt.Entities
         User,
         Moderator,
         Admin
+    }
+    public interface IUserRepository : IRepository<User>
+    {
+        Task<User> GetByUsernameAsync(string username);
+        Task<User> GetByEmailAsync(string email);
+        Task<bool> UsernameExistsAsync(string username);
+        Task<bool> EmailExistsAsync(string email);
+        Task<IEnumerable<User>> GetUsersByRoleAsync(UserRole role);
     }
 }

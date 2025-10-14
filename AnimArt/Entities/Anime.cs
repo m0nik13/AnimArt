@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewEngines;
+﻿using AnimArt.Repositories;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 
 namespace AnimArt.Entities
 {
@@ -43,5 +44,16 @@ namespace AnimArt.Entities
         OVA,
         ONA,
         Special
+    }
+    public interface IAnimeRepository : IRepository<Anime>
+    {
+        Task<IEnumerable<Anime>> GetByStatusAsync(AnimeStatus status);
+        Task<IEnumerable<Anime>> GetByTypeAsync(AnimeType type);
+        Task<IEnumerable<Anime>> GetByGenreAsync(int genreId);
+        Task<IEnumerable<Anime>> GetByStudioAsync(int studioId);
+        Task<IEnumerable<Anime>> SearchAsync(string searchTerm);
+        Task<IEnumerable<Anime>> GetRecentAsync(int count);
+        Task<double> GetAverageRatingAsync(int animeId);
+        Task<IEnumerable<Anime>> GetTopRatedAsync(int count);
     }
 }
