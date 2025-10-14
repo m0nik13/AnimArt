@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AnimArt</title>
     <link rel="stylesheet" href="~/css/site.css" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="app-container">
@@ -14,6 +14,17 @@
             <div class="logo-container">
                 <img src="~/assets/logo1.png" alt="AnimArt" class="logo">
             </div>
+
+            <!-- Пошукова строка -->
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" class="search-input" placeholder="Пошук аніме...">
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
             <nav class="main-nav">
                 <a asp-controller="Home" asp-action="Index" class="nav-item active">Головна</a>
                 <a href="#" class="nav-item">Огляд</a>
