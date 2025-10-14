@@ -1,6 +1,6 @@
 ﻿namespace AnimArt.Entities
 {
-    public class VoiceStudio
+    public class VoiceStudio : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

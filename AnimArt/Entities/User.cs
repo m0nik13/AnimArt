@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ViewEngines;
 
 namespace AnimArt.Entities
 {
-    public class User
+    public class User : IEntity
     {
         public int Id { get; set; }
         public string Username { get; set; }
@@ -26,12 +26,5 @@ namespace AnimArt.Entities
         Moderator,
         Admin
     }
-    public interface IUserRepository : IRepository<User>
-    {
-        Task<User> GetByUsernameAsync(string username);
-        Task<User> GetByEmailAsync(string email);
-        Task<bool> UsernameExistsAsync(string username);
-        Task<bool> EmailExistsAsync(string email);
-        Task<IEnumerable<User>> GetUsersByRoleAsync(UserRole role);
-    }
+    
 }

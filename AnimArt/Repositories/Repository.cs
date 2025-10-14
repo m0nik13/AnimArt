@@ -1,75 +1,54 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
-using AnimArt.Data;
-using Microsoft.EntityFrameworkCore;
-
+using AnimArt.Entities;
 namespace AnimArt.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : IEntity
     {
-        protected readonly ApplicationDbContext _context;
-        protected readonly DbSet<T> _dbSet;
+        protected List<T> _entities = new List<T>();
+        private int _nextId = 1;
 
-        public Repository(ApplicationDbContext context)
+        public T GetById(int id)
         {
-            _context = context;
-            _dbSet = context.Set<T>();
+            return _entities.FirstOrDefault(e => e.Id == id);
         }
 
-        public virtual async Task<T> GetByIdAsync(int id)
+        public IEnumerable<T> GetAll()
         {
-            return await _dbSet.FindAsync(id);
+            return _entities.AsReadOnly();
         }
 
-        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            return await _dbSet.ToListAsync();
+            return _entities.AsQueryable().Where(predicate);
         }
 
-        public virtual async Task<IEnumerable<T>> FindAsync(Expression<Func<T, bool>> predicate)
+        public void Add(T entity)
         {
-            return await _dbSet.Where(predicate).ToListAsync();
+            entity.Id = _nextId++;
+            _entities.Add(entity);
         }
 
-        public virtual async Task AddAsync(T entity)
+        public void Update(T entity)
         {
-            await _dbSet.AddAsync(entity);
+            var existingEntity = _entities.FirstOrDefault(e => e.Id == entity.Id);
+            if (existingEntity != null)
+            {
+                var index = _entities.IndexOf(existingEntity);
+                _entities[index] = entity;
+            }
         }
 
-        public virtual async Task AddRangeAsync(IEnumerable<T> entities)
+        public void Delete(T entity)
         {
-            await _dbSet.AddRangeAsync(entities);
+            _entities.RemoveAll(e => e.Id == entity.Id);
         }
 
-        public virtual void Update(T entity)
+        public void SaveChanges()
         {
-            _dbSet.Update(entity);
-        }
-
-        public virtual void Remove(T entity)
-        {
-            _dbSet.Remove(entity);
-        }
-
-        public virtual void RemoveRange(IEnumerable<T> entities)
-        {
-            _dbSet.RemoveRange(entities);
-        }
-
-        public virtual async Task<bool> ExistsAsync(int id)
-        {
-            var entity = await _dbSet.FindAsync(id);
-            return entity != null;
-        }
-
-        public virtual async Task<int> CountAsync()
-        {
-            return await _dbSet.CountAsync();
-        }
-
-        public virtual async Task<int> CountAsync(Expression<Func<T, bool>> predicate)
-        {
-            return await _dbSet.CountAsync(predicate);
+            // Для in-memory репозиторію нічого не робимо
+            // У реальному додатку тут буде збереження в БД
         }
     }
 }

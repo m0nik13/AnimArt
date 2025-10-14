@@ -2,7 +2,7 @@
 
 namespace AnimArt.Entities
 {
-    public class Review
+    public class Review : IEntity
     {
         public int Id { get; set; }
         public int UserId { get; set; }

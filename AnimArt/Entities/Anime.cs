@@ -1,11 +1,10 @@
-﻿using AnimArt.Repositories;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
+﻿using System.Collections.Generic;
 
 namespace AnimArt.Entities
 {
-    public class Anime
+    public class Anime : IEntity
     {
-        public int Id { get; set; }
+        // Видалити public int Id { get; set; } - тепер воно в BaseEntity
         public string Title { get; set; }
         public string OriginalTitle { get; set; }
         public string Description { get; set; }
@@ -17,7 +16,7 @@ namespace AnimArt.Entities
         public AnimeType Type { get; set; }
         public DateTime ReleaseDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public int DurationPerEpisode { get; set; } // в хвилинах
+        public int DurationPerEpisode { get; set; }
         public string AgeRating { get; set; }
 
         // Навігаційні властивості
@@ -44,16 +43,5 @@ namespace AnimArt.Entities
         OVA,
         ONA,
         Special
-    }
-    public interface IAnimeRepository : IRepository<Anime>
-    {
-        Task<IEnumerable<Anime>> GetByStatusAsync(AnimeStatus status);
-        Task<IEnumerable<Anime>> GetByTypeAsync(AnimeType type);
-        Task<IEnumerable<Anime>> GetByGenreAsync(int genreId);
-        Task<IEnumerable<Anime>> GetByStudioAsync(int studioId);
-        Task<IEnumerable<Anime>> SearchAsync(string searchTerm);
-        Task<IEnumerable<Anime>> GetRecentAsync(int count);
-        Task<double> GetAverageRatingAsync(int animeId);
-        Task<IEnumerable<Anime>> GetTopRatedAsync(int count);
     }
 }
