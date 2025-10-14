@@ -1,4 +1,6 @@
 ﻿using AnimArt.Entities;
+using AnimArt.Interfaces;
+using AnimArt.Models;
 
 namespace AnimArt.Repositories
 {

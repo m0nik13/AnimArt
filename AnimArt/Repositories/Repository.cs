@@ -1,54 +1,49 @@
-﻿using System.Collections.Generic;
+﻿
+using AnimArt.Data;
+using AnimArt.Interfaces;
 using System.Linq;
-using System.Linq.Expressions;
-using AnimArt.Entities;
+
 namespace AnimArt.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : IEntity
+    public class Repository<T> : IRepository<T> where T : class, IEntity
     {
-        protected List<T> _entities = new List<T>();
-        private int _nextId = 1;
+        protected List<T> _entities;
+        private readonly IDataStorage<T> _storage;
 
-        public T GetById(int id)
+        public Repository(IDataStorage<T> storage)
         {
-            return _entities.FirstOrDefault(e => e.Id == id);
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            return _entities.AsReadOnly();
-        }
-
-        public IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
-        {
-            return _entities.AsQueryable().Where(predicate);
+            _storage = storage;
+            _entities = _storage.Load();
         }
 
         public void Add(T entity)
         {
-            entity.Id = _nextId++;
-            _entities.Add(entity);
+            if (!_entities.Any(e => e.Id == entity.Id))
+            {
+                _entities.Add(entity);
+                _storage.Save(_entities);
+            }
+        }
+
+        public void Remove(T entity)
+        {
+            _entities.Remove(entity);
+            _storage.Save(_entities);
         }
 
         public void Update(T entity)
         {
-            var existingEntity = _entities.FirstOrDefault(e => e.Id == entity.Id);
-            if (existingEntity != null)
+            var existing = _entities.FirstOrDefault(e => e.Id == entity.Id);
+            if (existing != null)
             {
-                var index = _entities.IndexOf(existingEntity);
-                _entities[index] = entity;
+                _entities.Remove(existing);
+                _entities.Add(entity);
+                _storage.Save(_entities);
             }
         }
 
-        public void Delete(T entity)
-        {
-            _entities.RemoveAll(e => e.Id == entity.Id);
-        }
-
-        public void SaveChanges()
-        {
-            // Для in-memory репозиторію нічого не робимо
-            // У реальному додатку тут буде збереження в БД
-        }
+        public T GetById(int id) => _entities.FirstOrDefault(e => e.Id == id);
+        public IEnumerable<T> GetAll() => _entities;
+        public IEnumerable<T> GetSorted() => _entities.OrderBy(e => e.Id);
     }
 }

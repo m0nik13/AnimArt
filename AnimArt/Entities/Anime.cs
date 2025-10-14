@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿// Entities/Anime.cs
+using AnimArt.Interfaces;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 
 namespace AnimArt.Entities
 {
     public class Anime : IEntity
     {
-        // Видалити public int Id { get; set; } - тепер воно в BaseEntity
+        public int Id { get; set; }
         public string Title { get; set; }
         public string OriginalTitle { get; set; }
         public string Description { get; set; }
@@ -26,6 +28,16 @@ namespace AnimArt.Entities
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<UserLists> UserAnimeLists { get; set; }
+
+        public Anime()
+        {
+            Title = string.Empty;
+            OriginalTitle = string.Empty;
+            Description = string.Empty;
+            PosterUrl = string.Empty;
+            TrailerUrl = string.Empty;
+            AgeRating = string.Empty;
+        }
     }
 
     public enum AnimeStatus

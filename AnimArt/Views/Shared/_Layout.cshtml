@@ -29,7 +29,16 @@
                 <a asp-controller="Home" asp-action="Index" class="nav-item active">Головна</a>
                 <a href="#" class="nav-item">Огляд</a>
                 <a href="#" class="nav-item">Закладки</a>
-                <a href="#" class="nav-item">Профіль</a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Account" asp-action="Profile" class="nav-item">Профіль</a>
+                    <a asp-controller="Account" asp-action="Logout" class="nav-item">Вийти</a>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="nav-item">Увійти</a>
+                    <a asp-controller="Account" asp-action="Register" class="nav-item">Реєстрація</a>
+                }
             </nav>
         </header>
 

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "bs7KXjqZ5Vo=",
+  "dgSpecHash": "YqjwyNcQnyQ=",
   "success": true,
   "projectFilePath": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\AnimArt.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Anatoloii\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

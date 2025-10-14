@@ -1,5 +1,5 @@
-﻿using AnimArt.Repositories;
-
+﻿using AnimArt.Interfaces;
+using AnimArt.Repositories;
 namespace AnimArt.Entities
 {
     public class Review : IEntity

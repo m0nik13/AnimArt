@@ -32,3 +32,4 @@ C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\obj\Debug\net8.0\refint\AnimArt.
 C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\obj\Debug\net8.0\AnimArt.pdb
 C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\obj\Debug\net8.0\AnimArt.genruntimeconfig.cache
 C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\obj\Debug\net8.0\ref\AnimArt.dll
+C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\obj\Debug\net8.0\AnimArt.csproj.AssemblyReference.cache

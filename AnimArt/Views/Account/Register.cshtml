@@ -1,0 +1,67 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Реєстрація";
+}
+
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <img src="~/assets/logo1.png" alt="AnimArt" class="auth-logo">
+            <h2 class="auth-title">Приєднатися до AnimArt</h2>
+            <p class="auth-subtitle">Створіть свій акаунт для доступу до всіх функцій</p>
+        </div>
+
+        <form asp-action="Register" method="post" class="auth-form">
+            <div class="form-group">
+                <label asp-for="Username" class="form-label">Ім'я користувача</label>
+                <input asp-for="Username" type="text" class="form-input" placeholder="Оберіть унікальне ім'я" />
+                <span asp-validation-for="Username" class="validation-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="form-label">Email адреса</label>
+                <input asp-for="Email" type="email" class="form-input" placeholder="your@email.com" />
+                <span asp-validation-for="Email" class="validation-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password" class="form-label">Пароль</label>
+                <input asp-for="Password" type="password" class="form-input" placeholder="Мінімум 6 символів" />
+                <span asp-validation-for="Password" class="validation-error"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ConfirmPassword" class="form-label">Підтвердження пароля</label>
+                <input asp-for="ConfirmPassword" type="password" class="form-input" placeholder="Повторіть пароль" />
+                <span asp-validation-for="ConfirmPassword" class="validation-error"></span>
+            </div>
+
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="error-message">
+                    <i class="fas fa-exclamation-circle"></i>
+                    Будь ласка, виправте помилки в формі
+                </div>
+            }
+
+            <button type="submit" class="auth-button">
+                <i class="fas fa-user-plus"></i>
+                Зареєструватися
+            </button>
+
+            <div class="auth-links">
+                <span>Вже маєте акаунт?</span>
+                <a asp-action="Login" class="auth-link">Увійти</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .auth-subtitle {
+        color: #a0a0a0;
+        font-size: 0.95rem;
+        margin: 5px 0 0 0;
+        font-weight: 400;
+    }
+</style>
