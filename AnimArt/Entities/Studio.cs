@@ -1,6 +1,6 @@
 ﻿namespace AnimArt.Entities
 {
-    public class Studio
+    public class Studio : BaseEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -1,6 +1,9 @@
-﻿namespace AnimArt.Entities
+﻿// Entities/Review.cs
+using AnimArt.Interfaces;
+
+namespace AnimArt.Entities
 {
-    public class Review
+    public class Review : BaseEntity
     {
         public int Id { get; set; }
         public int UserId { get; set; }

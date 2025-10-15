@@ -1,15 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewEngines;
+﻿// Entities/User.cs
+using BCrypt.Net;
+using Microsoft.AspNetCore.Identity;
 
 namespace AnimArt.Entities
 {
-    public class User
+    public class User : BaseEntity
     {
         public int Id { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
-        public string PasswordHash { get; set; }
+
+        private string _passwordHash;
+        public string PasswordHash
+        {
+            get => _passwordHash;
+            set => _passwordHash = value;
+        }
+
         public string AvatarUrl { get; set; }
-        public DateTime RegistrationDate { get; set; }
+        public DateTime RegistrationDate { get; set; } = DateTime.Now;
         public DateTime LastLogin { get; set; }
         public UserRole Role { get; set; }
 
@@ -17,12 +26,28 @@ namespace AnimArt.Entities
         public virtual ICollection<UserLists> UserAnimeLists { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
+        public User()
+        {
+            Username = string.Empty;
+            Email = string.Empty;
+            PasswordHash = string.Empty;
+            AvatarUrl = string.Empty;
+            Role = UserRole.User;
+        }
+        public void SetPassword(string password)
+        {
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(password);
+        }
+        public bool VerifyPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, PasswordHash);
+        }
+        public enum UserRole
+        {
+            User,
+            Moderator,
+            Admin
+        }
     }
 
-    public enum UserRole
-    {
-        User,
-        Moderator,
-        Admin
-    }
 }

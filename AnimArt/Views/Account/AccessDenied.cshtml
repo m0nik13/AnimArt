@@ -1,0 +1,120 @@
+﻿@using AnimArt.Views
+@{
+    ViewData["Title"] = "Доступ заборонено";
+}
+
+<div class="error-container">
+    <div class="error-content">
+        <div class="error-icon">
+            <i class="fas fa-ban"></i>
+        </div>
+        <h1 class="error-title">Доступ заборонено</h1>
+        <p class="error-description">
+            Ви не маєте необхідних прав для доступу до цієї сторінки.
+            Будь ласка, зверніться до адміністратора якщо вважаєте, що це помилка.
+        </p>
+        <div class="error-actions">
+            <a asp-controller="Home" asp-action="Index" class="action-button primary">
+                <i class="fas fa-home"></i>
+                На головну
+            </a>
+            <a href="javascript:history.back()" class="action-button secondary">
+                <i class="fas fa-arrow-left"></i>
+                Назад
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .error-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 140px);
+        padding: 40px 20px;
+    }
+
+    .error-content {
+        text-align: center;
+        max-width: 500px;
+        background: #252525;
+        padding: 40px;
+        border-radius: 12px;
+        border: 1px solid #333;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    .error-icon {
+        font-size: 80px;
+        color: #cf6679;
+        margin-bottom: 20px;
+    }
+
+    .error-title {
+        color: #cf6679;
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0 0 15px 0;
+    }
+
+    .error-description {
+        color: #a0a0a0;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin: 0 0 30px 0;
+    }
+
+    .error-actions {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .action-button {
+        padding: 12px 25px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .primary {
+        background: #bb86fc;
+        color: white;
+    }
+
+        .primary:hover {
+            background: #9b6bd4;
+            transform: translateY(-1px);
+        }
+
+    .secondary {
+        background: #333;
+        color: #e0e0e0;
+        border: 1px solid #444;
+    }
+
+        .secondary:hover {
+            background: #444;
+            transform: translateY(-1px);
+        }
+
+    @@media (max-width: 480px) {
+        .error-content {
+            padding: 30px 25px;
+        }
+
+        .error-title {
+            font-size: 1.5rem;
+        }
+
+        .error-actions {
+            flex-direction: column;
+        }
+    }
+</style>

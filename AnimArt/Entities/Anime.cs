@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewEngines;
+﻿// Entities/Anime.cs
+using AnimArt.Interfaces;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 
 namespace AnimArt.Entities
 {
-    public class Anime
+    public class Anime : BaseEntity
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -16,7 +18,7 @@ namespace AnimArt.Entities
         public AnimeType Type { get; set; }
         public DateTime ReleaseDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public int DurationPerEpisode { get; set; } // в хвилинах
+        public int DurationPerEpisode { get; set; }
         public string AgeRating { get; set; }
 
         // Навігаційні властивості
@@ -26,6 +28,16 @@ namespace AnimArt.Entities
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<UserLists> UserAnimeLists { get; set; }
+
+        public Anime()
+        {
+            Title = string.Empty;
+            OriginalTitle = string.Empty;
+            Description = string.Empty;
+            PosterUrl = string.Empty;
+            TrailerUrl = string.Empty;
+            AgeRating = string.Empty;
+        }
     }
 
     public enum AnimeStatus
