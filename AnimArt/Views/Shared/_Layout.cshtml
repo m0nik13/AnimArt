@@ -17,7 +17,7 @@
                 <img src="~/assets/logo1.png" alt="AnimArt" class="logo" loading="lazy">
             </div>
 
-            <!-- Пошукова строка -->
+            <!-- Пошукова строка - збільшена та по центру -->
             <div class="search-container">
                 <div class="search-box">
                     <input type="text" class="search-input" placeholder="Пошук аніме..." aria-label="Пошук аніме">
@@ -28,6 +28,7 @@
             </div>
 
             <nav class="main-nav" aria-label="Основна навігація">
+                <a asp-controller="Home" asp-action="Index" class="nav-item">Головна</a>
                 <a href="#" class="nav-item">Огляд</a>
                 <a href="#" class="nav-item">Закладки</a>
                 @if (User.Identity.IsAuthenticated)
@@ -43,17 +44,7 @@
             </nav>
         </header>
 
-        <!-- Бічна панель -->
-        <aside class="sidebar" aria-label="Бічна панель">
-            <h2 class="sidebar-title">Моя вкладка</h2>
-            <nav class="sidebar-nav" aria-label="Бічна навігація">
-                <a href="#" class="sidebar-item active">Останнє</a>
-                <a href="#" class="sidebar-item">Онгоінги</a>
-                <a href="#" class="sidebar-item">Анонси</a>
-            </nav>
-        </aside>
-
-        <!-- Основний контент -->
+        <!-- Основний контент - без бічної панелі -->
         <main class="content">
             @RenderBody()
         </main>
@@ -78,8 +69,26 @@
                 <ul class="footer-links">
                     <li><a asp-controller="Home" asp-action="Index">Головна</a></li>
                     <li><a href="#">Огляд</a></li>
-                    <li><a href="#">Закладки</a></li>
-                    <li><a href="#">Профіль</a></li>
+                    <li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-controller="Account" asp-action="Profile">Закладки</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Account" asp-action="Login">Закладки</a>
+                        }
+                    </li>
+                    <li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a asp-controller="Account" asp-action="Profile">Профіль</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Account" asp-action="Login">Профіль</a>
+                        }
+                    </li>
                     <li><a href="#">Каталог аніме</a></li>
                 </ul>
             </div>

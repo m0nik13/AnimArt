@@ -58,7 +58,7 @@ namespace AnimArt.Controllers
             var anime = _animeRepository.GetById(id);
             if (anime != null)
             {
-                _animeRepository.Delete(anime);
+                _animeRepository.Remove(anime);
                 _animeRepository.SaveChanges();
             }
             return RedirectToAction("Index");

@@ -1,0 +1,15 @@
+[
+  {
+    "Id": 1,
+    "Username": "user",
+    "Email": "byrdak7@gmail.com",
+    "PasswordHash": "$2a$11$4MeFI/TAkRO6VEb3d5/BY.qzW16daVq0BQDsEFLMQ5F5jXuHQN5DS",
+    "AvatarUrl": "",
+    "RegistrationDate": "2025-10-15T07:43:18.8794313+03:00",
+    "LastLogin": "2025-10-15T08:21:59.8292604+03:00",
+    "Role": 0,
+    "UserAnimeLists": null,
+    "Reviews": null,
+    "Ratings": null
+  }
+]

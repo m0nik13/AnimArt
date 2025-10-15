@@ -1,3 +1,4 @@
+/* wwwroot/css/site.css */
 * {
     margin: 0;
     padding: 0;
@@ -55,7 +56,7 @@ body {
     justify-content: space-between;
     align-items: center;
     height: 70px;
-    gap: 20px;
+    gap: 30px;
 }
 
 .logo-container {
@@ -76,7 +77,7 @@ body {
     color: var(--accent-primary);
 }
 
-/* Пошукова строка */
+/* Пошукова строка - оригінальні розміри, але по центру */
 .search-container {
     display: flex;
     align-items: center;
@@ -133,73 +134,36 @@ body {
     }
 
 /* Навігація */
-.nav-item, .sidebar-item {
+.nav-item {
     color: var(--text-primary);
-    cursor: pointer;
     text-decoration: none;
     font-weight: 500;
     transition: all 0.3s ease;
-    border-radius: 4px;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 0.95rem;
 }
 
-.nav-item {
-    padding: 5px 10px;
-}
-
-.sidebar-item {
-    padding: 12px 15px;
-    border-radius: 8px 0 0 8px;
-}
-
-    .nav-item.active,
-    .sidebar-item.active {
+    .nav-item.active {
         color: var(--accent-primary);
         background-color: rgba(187, 134, 252, 0.1);
     }
 
-    .nav-item:hover,
-    .sidebar-item:hover {
+    .nav-item:hover {
         background-color: var(--bg-tertiary);
-        text-decoration: none;
+        transform: translateY(-1px);
     }
 
 .main-nav {
     display: flex;
-    text-decoration: none;
-    gap: 20px;
+    gap: 15px;
     flex-shrink: 0;
-}
-
-/* Бічна панель */
-.sidebar {
-    width: 220px;
-    background-color: var(--bg-tertiary);
-    padding: 20px 0 20px 20px;
-    position: fixed;
-    top: 70px;
-    bottom: 0;
-    left: 0;
-    overflow-y: auto;
-    z-index: 90;
-}
-
-.sidebar-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 15px;
-    padding-left: 10px;
-}
-
-.sidebar-nav {
-    display: flex;
-    flex-direction: column;
 }
 
 /* Основний контент */
 .content {
     flex: 1;
-    padding: 20px 20px 20px 240px;
+    padding: 30px;
     width: 100%;
     min-height: calc(100vh - 70px);
     margin-top: 70px;
@@ -387,26 +351,17 @@ body {
         flex-direction: column;
     }
 
-    .sidebar {
-        position: static;
-        width: 100%;
-        padding: 20px 15px 15px;
-        top: auto;
-        bottom: auto;
-    }
-
     .content {
         padding: 20px 15px;
         margin-top: 0;
         min-height: auto;
-        margin-left: 0;
     }
 
     .header {
         flex-wrap: wrap;
         height: auto;
         padding: 10px 15px;
-        gap: 10px;
+        gap: 15px;
     }
 
     .logo-container {
@@ -417,7 +372,7 @@ body {
         order: 3;
         flex-basis: 100%;
         max-width: 100%;
-        margin: 5px 0;
+        margin: 10px 0 5px;
     }
 
     .main-nav {
@@ -427,7 +382,7 @@ body {
 
     .nav-item {
         font-size: 0.9rem;
-        padding: 5px 8px;
+        padding: 6px 12px;
     }
 
     .anime-card {
@@ -457,7 +412,7 @@ body {
 @media (max-width: 480px) {
     .header {
         padding: 8px 10px;
-        gap: 8px;
+        gap: 10px;
     }
 
     .app-title {
@@ -482,7 +437,7 @@ body {
 
     .nav-item {
         font-size: 0.85rem;
-        padding: 4px 6px;
+        padding: 5px 8px;
     }
 
     .anime-title {
@@ -507,24 +462,6 @@ body {
     }
 
     .content {
-        padding: 20px 15px;
-        margin-top: 0;
+        padding: 15px 10px;
     }
-
-    .sidebar {
-        padding: 15px 15px 15px;
-    }
-}
-
-@media (min-width: 769px) {
-    .sidebar {
-        height: calc(100vh - 70px);
-        overflow-y: auto;
-    }
-
-        .sidebar::after {
-            content: '';
-            display: block;
-            height: 20px;
-        }
 }

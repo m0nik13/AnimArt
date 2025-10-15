@@ -36,6 +36,34 @@
                 <span asp-validation-for="ConfirmPassword" class="validation-error"></span>
             </div>
 
+            <div class="form-group">
+                <label class="form-label">Оберіть роль</label>
+                <div class="role-selector">
+                    <label class="role-option @(Model?.Role == "User" ? "selected" : "")">
+                        <input type="radio" asp-for="Role" value="User" checked="@(Model?.Role == "User")" />
+                        <div class="role-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="role-info">
+                            <div class="role-name">Користувач</div>
+                            <div class="role-description">Звичайний акаунт для перегляду аніме</div>
+                        </div>
+                    </label>
+
+                    <label class="role-option @(Model?.Role == "Admin" ? "selected" : "")">
+                        <input type="radio" asp-for="Role" value="Admin" checked="@(Model?.Role == "Admin")" />
+                        <div class="role-icon">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <div class="role-info">
+                            <div class="role-name">Адміністратор</div>
+                            <div class="role-description">Повний доступ до управління сайтом</div>
+                        </div>
+                    </label>
+                </div>
+                <span asp-validation-for="Role" class="validation-error"></span>
+            </div>
+
             @if (!ViewData.ModelState.IsValid)
             {
                 <div class="error-message">
@@ -58,10 +86,237 @@
 </div>
 
 <style>
+    .auth-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: calc(100vh - 140px);
+        padding: 40px 20px;
+        background: linear-gradient(135deg, #121212 0%, #1a1a1a 100%);
+    }
+
+    .auth-card {
+        background: #252525;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        border: 1px solid #333;
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .auth-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .auth-logo {
+        height: 50px;
+        margin-bottom: 15px;
+    }
+
+    .auth-title {
+        color: #bb86fc;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0;
+    }
+
     .auth-subtitle {
         color: #a0a0a0;
         font-size: 0.95rem;
         margin: 5px 0 0 0;
         font-weight: 400;
     }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        display: block;
+        color: #e0e0e0;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+
+    .form-input {
+        width: 100%;
+        padding: 12px 15px;
+        background: #1e1e1e;
+        border: 1px solid #333;
+        border-radius: 6px;
+        color: #e0e0e0;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+    }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #bb86fc;
+            box-shadow: 0 0 0 2px rgba(187, 134, 252, 0.2);
+        }
+
+        .form-input::placeholder {
+            color: #888;
+        }
+
+    .validation-error {
+        color: #cf6679;
+        font-size: 0.85rem;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .error-message {
+        background: rgba(207, 102, 121, 0.1);
+        border: 1px solid #cf6679;
+        color: #cf6679;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+    }
+
+    .auth-button {
+        width: 100%;
+        background: #bb86fc;
+        color: white;
+        border: none;
+        padding: 14px;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+
+        .auth-button:hover {
+            background: #9b6bd4;
+            transform: translateY(-1px);
+        }
+
+    .auth-links {
+        text-align: center;
+        color: #a0a0a0;
+        font-size: 0.9rem;
+    }
+
+    .auth-link {
+        color: #bb86fc;
+        text-decoration: none;
+        font-weight: 500;
+        margin-left: 5px;
+        transition: color 0.3s ease;
+    }
+
+        .auth-link:hover {
+            color: #9b6bd4;
+            text-decoration: underline;
+        }
+
+    .role-selector {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .role-option {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        border: 2px solid #333;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: #1e1e1e;
+    }
+
+        .role-option:hover {
+            border-color: #444;
+        }
+
+        .role-option.selected {
+            border-color: #bb86fc;
+            background: rgba(187, 134, 252, 0.05);
+        }
+
+        .role-option input[type="radio"] {
+            display: none;
+        }
+
+    .role-icon {
+        font-size: 1.5rem;
+        color: #bb86fc;
+        margin-right: 15px;
+        width: 40px;
+        text-align: center;
+    }
+
+    .role-info {
+        flex: 1;
+    }
+
+    .role-name {
+        color: #e0e0e0;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+
+    .role-description {
+        color: #a0a0a0;
+        font-size: 0.85rem;
+    }
+
+    @@media (max-width: 480px) {
+        .auth-container {
+            padding: 20px 15px;
+        }
+
+        .auth-card {
+            padding: 30px 25px;
+        }
+
+        .auth-title {
+            font-size: 1.3rem;
+        }
+
+        .role-option {
+            flex-direction: column;
+            text-align: center;
+            padding: 12px;
+        }
+
+        .role-icon {
+            margin-right: 0;
+            margin-bottom: 10px;
+        }
+    }
 </style>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const roleOptions = document.querySelectorAll('.role-option');
+
+            roleOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const radio = this.querySelector('input[type="radio"]');
+                    radio.checked = true;
+
+                    // Оновлюємо вигляд
+                    roleOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+        });
+    </script>
+}

@@ -11,5 +11,6 @@ namespace AnimArt.Interfaces
         T GetById(int id);
         IEnumerable<T> GetAll();
         IEnumerable<T> GetSorted();
+        void SaveChanges();
     }
 }
