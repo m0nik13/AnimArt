@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "Id": 1,
+    "Title": "DanDaDan",
+    "OriginalTitle": "awdsw",
+    "Description": "dwdadswa",
+    "PosterUrl": "",
+    "TrailerUrl": "",
+    "TotalEpisodes": 1,
+    "ReleasedEpisodes": 0,
+    "Status": 2,
+    "Type": 1,
+    "ReleaseDate": "2007-02-13T00:00:00",
+    "EndDate": null,
+    "DurationPerEpisode": 24,
+    "AgeRating": "PG-13",
+    "AnimeGenres": null,
+    "AnimeStudios": null,
+    "AnimeVoiceStudios": null,
+    "Reviews": null,
+    "Ratings": null,
+    "UserAnimeLists": null
+  }
+]

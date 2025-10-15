@@ -1,15 +1,26 @@
 [
   {
-    "Id": 1,
-    "Username": "user",
-    "Email": "byrdak7@gmail.com",
-    "PasswordHash": "$2a$11$4MeFI/TAkRO6VEb3d5/BY.qzW16daVq0BQDsEFLMQ5F5jXuHQN5DS",
+    "Username": "admin1",
+    "PasswordHash": "$2a$11$LXayPTqzUqDukQv.WUtlD.HUASYRsUn0f.9sdNPOg/6g3hJ75ZRJS",
     "AvatarUrl": "",
-    "RegistrationDate": "2025-10-15T07:43:18.8794313+03:00",
-    "LastLogin": "2025-10-15T08:21:59.8292604+03:00",
-    "Role": 0,
+    "RegistrationDate": "2025-10-15T11:15:42.1495427+03:00",
+    "LastLogin": "2025-10-15T11:17:15.2029495+03:00",
+    "Role": 1,
     "UserAnimeLists": null,
     "Reviews": null,
-    "Ratings": null
+    "Ratings": null,
+    "Id": 3
+  },
+  {
+    "Username": "admin",
+    "PasswordHash": "$2a$11$LJDFxxlmk8YyXnjGdYklN.lICIJemrLclfFwHJOXG99AMfcRJJfk2",
+    "AvatarUrl": "",
+    "RegistrationDate": "2025-10-15T11:33:11.2018499+03:00",
+    "LastLogin": "2025-10-15T11:33:19.60226+03:00",
+    "Role": 1,
+    "UserAnimeLists": null,
+    "Reviews": null,
+    "Ratings": null,
+    "Id": 4
   }
 ]

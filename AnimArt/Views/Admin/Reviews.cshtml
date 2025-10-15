@@ -1,0 +1,106 @@
+﻿@model IEnumerable<Review>
+@{
+    ViewData["Title"] = "Керування відгуками";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-container">
+    <div class="admin-header">
+        <h1 class="admin-title">
+            <i class="fas fa-comments"></i>
+            Керування відгуками
+        </h1>
+        <p class="admin-subtitle">Перегляд та видалення відгуків</p>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-error">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Користувач</th>
+                    <th>Аніме</th>
+                    <th>Заголовок</th>
+                    <th>Вміст</th>
+                    <th>Лайки</th>
+                    <th>Дизлайки</th>
+                    <th>Спойлери</th>
+                    <th>Дата</th>
+                    <th>Дії</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var review in Model)
+                {
+                    <tr>
+                        <td>@review.Id</td>
+                        <td>@review.UserId</td>
+                        <td>@review.AnimeId</td>
+                        <td>@review.Title</td>
+                        <td class="truncate">@(review.Content.Length > 50 ? review.Content.Substring(0, 50) + "..." : review.Content)</td>
+                        <td>@review.Likes</td>
+                        <td>@review.Dislikes</td>
+                        <td>
+                            @if (review.ContainsSpoilers)
+                            {
+                                <span class="badge badge-warning">Так</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-success">Ні</span>
+                            }
+                        </td>
+                        <td>@review.CreatedAt.ToString("dd.MM.yyyy")</td>
+                        <td class="actions">
+                            <form asp-action="DeleteReview" method="post" style="display: inline;">
+                                <input type="hidden" name="id" value="@review.Id" />
+                                <button type="submit" class="btn-danger" onclick="return confirm('Ви впевнені?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .truncate {
+        max-width: 200px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .badge {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .badge-warning {
+        background: rgba(255, 183, 77, 0.2);
+        color: #ffb74d;
+    }
+
+    .badge-success {
+        background: rgba(3, 218, 198, 0.2);
+        color: #03dac6;
+    }
+</style>

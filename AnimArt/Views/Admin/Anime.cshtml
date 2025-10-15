@@ -1,0 +1,279 @@
+﻿@model AnimeManagementViewModel
+@{
+    ViewData["Title"] = "Керування аніме";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-container">
+    <div class="admin-header">
+        <h1 class="admin-title">
+            <i class="fas fa-film"></i>
+            Керування аніме
+        </h1>
+        <p class="admin-subtitle">Додавання, редагування та видалення аніме</p>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-error">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <div class="admin-actions">
+        <button class="btn-primary" onclick="showCreateForm()">
+            <i class="fas fa-plus"></i>
+            Додати аніме
+        </button>
+    </div>
+
+    <!-- Форма створення аніме -->
+    <div id="createForm" class="form-modal" style="display: none;">
+        <div class="form-content">
+            <h3>Додати нове аніме</h3>
+            <form asp-action="CreateAnime" method="post">
+                <div class="form-group">
+                    <label>Назва</label>
+                    <input type="text" name="Title" class="form-input" required />
+                </div>
+                <div class="form-group">
+                    <label>Оригінальна назва</label>
+                    <input type="text" name="OriginalTitle" class="form-input" />
+                </div>
+                <div class="form-group">
+                    <label>Опис</label>
+                    <textarea name="Description" class="form-textarea" rows="4"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Статус</label>
+                    <select name="Status" class="form-input">
+                        <option value="Ongoing">Онґоїнг</option>
+                        <option value="Completed">Завершено</option>
+                        <option value="Announced">Анонсовано</option>
+                        <option value="Hiatus">Перерва</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Тип</label>
+                    <select name="Type" class="form-input">
+                        <option value="TV">TV Серіал</option>
+                        <option value="Movie">Фільм</option>
+                        <option value="OVA">OVA</option>
+                        <option value="ONA">ONA</option>
+                        <option value="Special">Спешл</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Кількість серій</label>
+                    <input type="number" name="TotalEpisodes" class="form-input" value="12" min="1" />
+                </div>
+                <div class="form-group">
+                    <label>Дата виходу</label>
+                    <input type="date" name="ReleaseDate" class="form-input" required />
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Створити</button>
+                    <button type="button" class="btn-secondary" onclick="hideCreateForm()">Скасувати</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Назва</th>
+                    <th>Оригінальна назва</th>
+                    <th>Статус</th>
+                    <th>Тип</th>
+                    <th>Серій</th>
+                    <th>Дата виходу</th>
+                    <th>Дії</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var anime in Model.AnimeList)
+                {
+                    <tr>
+                        <td>@anime.Id</td>
+                        <td>@anime.Title</td>
+                        <td>@anime.OriginalTitle</td>
+                        <td>
+                            <span class="status-badge @anime.Status.ToString().ToLower()">@anime.Status</span>
+                        </td>
+                        <td>@anime.Type</td>
+                        <td>@anime.TotalEpisodes</td>
+                        <td>@anime.ReleaseDate.ToString("dd.MM.yyyy")</td>
+                        <td class="actions">
+                            <button class="btn-warning" onclick="editAnime(
+                                    @anime.Id,
+                                    '@anime.Title',
+                                    '@anime.OriginalTitle',
+                                    '@anime.Description',
+                                    '@anime.Status',
+                                    '@anime.Type',
+                                    @anime.TotalEpisodes,
+                                    @anime.ReleasedEpisodes,
+                                    '@anime.ReleaseDate.ToString("yyyy-MM-dd")')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <form asp-action="DeleteAnime" method="post" style="display: inline;">
+                                <input type="hidden" name="id" value="@anime.Id" />
+                                <button type="submit" class="btn-danger" onclick="return confirm('Ви впевнені?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Форма редагування аніме -->
+<div id="editForm" class="form-modal" style="display: none;">
+    <div class="form-content">
+        <h3>Редагувати аніме</h3>
+        <form asp-action="UpdateAnime" method="post">
+            <input type="hidden" id="editAnimeId" name="Id" />
+            <div class="form-group">
+                <label>Назва</label>
+                <input type="text" id="editAnimeTitle" name="Title" class="form-input" required />
+            </div>
+            <div class="form-group">
+                <label>Оригінальна назва</label>
+                <input type="text" id="editAnimeOriginalTitle" name="OriginalTitle" class="form-input" />
+            </div>
+            <div class="form-group">
+                <label>Опис</label>
+                <textarea id="editAnimeDescription" name="Description" class="form-textarea" rows="4"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Статус</label>
+                <select id="editAnimeStatus" name="Status" class="form-input">
+                    <option value="Ongoing">Онґоїнг</option>
+                    <option value="Completed">Завершено</option>
+                    <option value="Announced">Анонсовано</option>
+                    <option value="Hiatus">Перерва</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Тип</label>
+                <select id="editAnimeType" name="Type" class="form-input">
+                    <option value="TV">TV Серіал</option>
+                    <option value="Movie">Фільм</option>
+                    <option value="OVA">OVA</option>
+                    <option value="ONA">ONA</option>
+                    <option value="Special">Спешл</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Загальна кількість серій</label>
+                <input type="number" id="editAnimeTotalEpisodes" name="TotalEpisodes" class="form-input" min="1" />
+            </div>
+            <div class="form-group">
+                <label>Випущено серій</label>
+                <input type="number" id="editAnimeReleasedEpisodes" name="ReleasedEpisodes" class="form-input" min="0" />
+            </div>
+            <div class="form-group">
+                <label>Дата виходу</label>
+                <input type="date" id="editAnimeReleaseDate" name="ReleaseDate" class="form-input" required />
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Зберегти</button>
+                <button type="button" class="btn-secondary" onclick="hideEditForm()">Скасувати</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function showCreateForm() {
+        document.getElementById('createForm').style.display = 'flex';
+    }
+
+    function hideCreateForm() {
+        document.getElementById('createForm').style.display = 'none';
+    }
+
+    function editAnime(id, title, originalTitle, description, status, type, totalEpisodes, releasedEpisodes, releaseDate) {
+        document.getElementById('editAnimeId').value = id;
+        document.getElementById('editAnimeTitle').value = title;
+        document.getElementById('editAnimeOriginalTitle').value = originalTitle;
+        document.getElementById('editAnimeDescription').value = description;
+        document.getElementById('editAnimeStatus').value = status;
+        document.getElementById('editAnimeType').value = type;
+        document.getElementById('editAnimeTotalEpisodes').value = totalEpisodes;
+        document.getElementById('editAnimeReleasedEpisodes').value = releasedEpisodes;
+        document.getElementById('editAnimeReleaseDate').value = releaseDate;
+        document.getElementById('editForm').style.display = 'flex';
+    }
+
+    function hideEditForm() {
+        document.getElementById('editForm').style.display = 'none';
+    }
+
+    // Закриття модальних вікон при кліку на фон
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('form-modal')) {
+            e.target.style.display = 'none';
+        }
+    });
+</script>
+
+<style>
+    .alert {
+        padding: 12px 15px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        font-weight: 500;
+    }
+
+    .alert-success {
+        background: rgba(3, 218, 198, 0.2);
+        color: #03dac6;
+        border: 1px solid #03dac6;
+    }
+
+    .alert-error {
+        background: rgba(207, 102, 121, 0.2);
+        color: #cf6679;
+        border: 1px solid #cf6679;
+    }
+
+    .status-badge {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+        .status-badge.ongoing {
+            background: rgba(3, 218, 198, 0.2);
+            color: #03dac6;
+        }
+
+        .status-badge.completed {
+            background: rgba(187, 134, 252, 0.2);
+            color: #bb86fc;
+        }
+
+        .status-badge.announced {
+            background: rgba(255, 183, 77, 0.2);
+            color: #ffb74d;
+        }
+
+        .status-badge.hiatus {
+            background: rgba(207, 102, 121, 0.2);
+            color: #cf6679;
+        }
+</style>

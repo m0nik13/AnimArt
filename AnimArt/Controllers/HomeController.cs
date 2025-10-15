@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// Controllers/HomeController.cs
+using System.Security.Claims;
+using AnimArt.Interfaces;
 using AnimArt.Repositories;
-using AnimArt.Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AnimArt.Controllers
 {
@@ -15,66 +18,14 @@ namespace AnimArt.Controllers
 
         public IActionResult Index()
         {
-            var animes = _animeRepository.GetAll();
-            return View(animes);
-        }
-
-        public IActionResult Search(string query)
-        {
-            if (string.IsNullOrEmpty(query))
+            // Перевіряємо, чи користувач адмін
+            if (User.IsInRole("Admin"))
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Admin");
             }
 
-            var results = _animeRepository.GetByTitle(query);
-            return View("Index", results);
-        }
-
-        public IActionResult Details(int id)
-        {
-            var anime = _animeRepository.GetById(id);
-            if (anime == null)
-            {
-                return NotFound();
-            }
-            return View(anime);
-        }
-
-        [HttpPost]
-        public IActionResult AddAnime(Anime anime)
-        {
-            if (ModelState.IsValid)
-            {
-                _animeRepository.Add(anime);
-                _animeRepository.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(anime);
-        }
-
-        [HttpPost]
-        public IActionResult DeleteAnime(int id)
-        {
-            var anime = _animeRepository.GetById(id);
-            if (anime != null)
-            {
-                _animeRepository.Remove(anime);
-                _animeRepository.SaveChanges();
-            }
-            return RedirectToAction("Index");
-        }
-
-        // Демонстрація LINQ сортування
-        public IActionResult SortedByRating()
-        {
-            var sortedAnime = _animeRepository.GetSortedByRating();
-            return View("Index", sortedAnime);
-        }
-
-        public IActionResult SortedByReleaseDate()
-        {
-            var sortedAnime = _animeRepository.GetSortedByReleaseDate();
-            return View("Index", sortedAnime);
+            var recentAnime = _animeRepository.GetSortedByReleaseDate();
+            return View(recentAnime);
         }
     }
 }

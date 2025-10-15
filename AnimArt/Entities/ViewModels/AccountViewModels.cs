@@ -17,12 +17,8 @@ public class RegisterViewModel
     [StringLength(20, MinimumLength = 3, ErrorMessage = "Ім'я повинно містити від 3 до 20 символів")]
     public string Username { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Email обов'язковий")]
-    [EmailAddress(ErrorMessage = "Невірний формат email")]
-    public string Email { get; set; } = string.Empty;
-
     [Required(ErrorMessage = "Пароль обов'язковий")]
-    [StringLength(100, ErrorMessage = "Пароль повинен містити мінімум 6 символів")]
+    [StringLength(100, MinimumLength = 6, ErrorMessage = "Пароль повинен містити мінімум 6 символів")]
     [DataType(DataType.Password)]
     public string Password { get; set; } = string.Empty;
 
@@ -34,11 +30,10 @@ public class RegisterViewModel
     [Required(ErrorMessage = "Оберіть роль")]
     public string Role { get; set; } = "User";
 }
-
+// Models/ViewModels/ProfileViewModel.cs
 public class ProfileViewModel
 {
     public string Username { get; set; } = string.Empty;
-    public string Email { get; set; } = string.Empty;
     public string Role { get; set; } = string.Empty;
     public DateTime RegistrationDate { get; set; }
     public DateTime LastLogin { get; set; }
