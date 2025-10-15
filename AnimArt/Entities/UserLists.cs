@@ -1,6 +1,6 @@
 ﻿namespace AnimArt.Entities
 {
-    public class UserLists : IEntity
+    public class UserLists : BaseEntity
     {
         public int Id { get; set; }
         public int UserId { get; set; }

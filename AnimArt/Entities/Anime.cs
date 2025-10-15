@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc.ViewEngines;
 
 namespace AnimArt.Entities
 {
-    public class Anime : IEntity
+    public class Anime : BaseEntity
     {
         public int Id { get; set; }
         public string Title { get; set; }

@@ -1,4 +1,4 @@
-﻿
+﻿// Repositories/Repository.cs
 using AnimArt.Data;
 using AnimArt.Interfaces;
 using System.Linq;
@@ -45,5 +45,9 @@ namespace AnimArt.Repositories
         public T GetById(int id) => _entities.FirstOrDefault(e => e.Id == id);
         public IEnumerable<T> GetAll() => _entities;
         public IEnumerable<T> GetSorted() => _entities.OrderBy(e => e.Id);
+        public void SaveChanges()
+        {
+            _storage.Save(_entities);
+        }
     }
 }

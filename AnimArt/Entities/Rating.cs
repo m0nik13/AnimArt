@@ -1,6 +1,6 @@
 ﻿namespace AnimArt.Entities
 {
-    public class Rating : IEntity
+    public class Rating : BaseEntity
     {
         public int Id { get; set; }
         public int UserId { get; set; }

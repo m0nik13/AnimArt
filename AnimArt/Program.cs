@@ -2,6 +2,7 @@
 using AnimArt.Data;
 using AnimArt.Entities;
 using AnimArt.Interfaces;
+using AnimArt.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +15,20 @@ builder.Services.AddAuthentication("CookieAuth")
         options.AccessDeniedPath = "/Account/AccessDenied";
     });
 
-// Реєстрація репозиторіїв
+// Реєстрація DataStorage
 builder.Services.AddSingleton<IDataStorage<User>, JsonStorage<User>>();
-builder.Services.AddScoped<UserRepository>();
+builder.Services.AddSingleton<IDataStorage<Anime>, JsonStorage<Anime>>();
+builder.Services.AddSingleton<IDataStorage<Review>, JsonStorage<Review>>();
+builder.Services.AddSingleton<IDataStorage<Rating>, JsonStorage<Rating>>();
+builder.Services.AddSingleton<IDataStorage<UserLists>, JsonStorage<UserLists>>();
+
+// Реєстрація репозиторіїв з використанням інтерфейсів
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAnimeRepository, AnimeRepository>();
+builder.Services.AddScoped<IRepository<Review>, Repository<Review>>();
+builder.Services.AddScoped<IRepository<Rating>, Repository<Rating>>();
+builder.Services.AddScoped<IRepository<UserLists>, Repository<UserLists>>();
+
 builder.Services.AddScoped<AuthService>();
 
 builder.Services.AddControllersWithViews();
@@ -33,7 +45,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
-// Додайте UseAuthentication перед UseAuthorization
 app.UseAuthentication();
 app.UseAuthorization();
 

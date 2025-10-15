@@ -1,11 +1,12 @@
 ﻿// Services/AuthService.cs
 using AnimArt.Entities;
+using AnimArt.Interfaces;
 
 public class AuthService
 {
-    private readonly UserRepository _userRepository;
+    private readonly IUserRepository _userRepository;
 
-    public AuthService(UserRepository userRepository)
+    public AuthService(IUserRepository userRepository)
     {
         _userRepository = userRepository;
     }
@@ -19,5 +20,6 @@ public class AuthService
     public void Register(User user)
     {
         _userRepository.Add(user);
+        _userRepository.SaveChanges();
     }
 }

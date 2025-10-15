@@ -4,17 +4,17 @@ using Microsoft.AspNetCore.Identity;
 
 namespace AnimArt.Entities
 {
-    public class User : IEntity
+    public class User : BaseEntity
     {
         public int Id { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
 
-        private string _password;
+        private string _passwordHash;
         public string PasswordHash
         {
-            get => _password;
-            set => _password = BCrypt.Net.BCrypt.EnhancedHashPassword(value, 13);
+            get => _passwordHash;
+            set => _passwordHash = value;
         }
 
         public string AvatarUrl { get; set; }
@@ -34,6 +34,10 @@ namespace AnimArt.Entities
             AvatarUrl = string.Empty;
             Role = UserRole.User;
         }
+        public void SetPassword(string password)
+        {
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword(password);
+        }
         public bool VerifyPassword(string password)
         {
             return BCrypt.Net.BCrypt.Verify(password, PasswordHash);
@@ -46,8 +50,4 @@ namespace AnimArt.Entities
         }
     }
 
-    public interface IEntity
-    {
-        int Id { get; }
-    }
 }
