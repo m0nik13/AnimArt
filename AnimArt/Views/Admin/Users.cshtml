@@ -77,15 +77,12 @@
                             <button class="btn-warning" onclick="editUser(@user.Id, '@user.Username', '@user.Role')">
                                 <i class="fas fa-edit"></i>
                             </button>
-                            @if (user.Role != AnimArt.Entities.User.UserRole.Admin)
-                            {
-                                <form asp-action="DeleteUser" method="post" style="display: inline;">
-                                    <input type="hidden" name="id" value="@user.Id" />
-                                    <button type="submit" class="btn-danger" onclick="return confirm('Ви впевнені?')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            }
+                            <form asp-action="DeleteUser" method="post" style="display: inline;">
+                                <input type="hidden" name="id" value="@user.Id" />
+                                <button type="submit" class="btn-danger" onclick="return confirm('Ви впевнені, що хочете видалити цього користувача?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 }
@@ -276,6 +273,7 @@
     }
 
     function editUser(id, username, role) {
+        console.log('Editing user:', id, username, role);
         document.getElementById('editUserId').value = id;
         document.getElementById('editUsername').value = username;
         document.getElementById('editUserRole').value = role;

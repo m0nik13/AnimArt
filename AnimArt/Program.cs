@@ -1,4 +1,3 @@
-// Program.cs
 using AnimArt.Data;
 using AnimArt.Entities;
 using AnimArt.Interfaces;
@@ -13,7 +12,7 @@ builder.Services.AddAuthentication("CookieAuth")
         options.Cookie.Name = "CookieAuth";
         options.LoginPath = "/Account/Login";
         options.AccessDeniedPath = "/Account/AccessDenied";
-        options.ExpireTimeSpan = TimeSpan.FromDays(7); //  уки на 7 дн≥в
+        options.ExpireTimeSpan = TimeSpan.FromDays(7);
     });
 
 // –еЇстрац≥€ DataStorage
@@ -52,8 +51,6 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-
-// ¬ажливо: UseAuthentication маЇ бути перед UseAuthorization
 app.UseAuthentication();
 app.UseAuthorization();
 

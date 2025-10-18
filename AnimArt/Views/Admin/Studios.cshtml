@@ -39,20 +39,12 @@
             <h3>Додати нову студію</h3>
             <form asp-action="CreateStudio" method="post">
                 <div class="form-group">
-                    <label>Назва студії</label>
+                    <label>Назва студії *</label>
                     <input type="text" name="Name" class="form-input" required />
                 </div>
                 <div class="form-group">
                     <label>Японська назва</label>
                     <input type="text" name="JapaneseName" class="form-input" />
-                </div>
-                <div class="form-group">
-                    <label>Опис</label>
-                    <textarea name="Description" class="form-textarea" rows="3"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Дата заснування</label>
-                    <input type="date" name="FoundedDate" class="form-input" required />
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn-primary">Створити</button>
@@ -69,8 +61,6 @@
                     <th>ID</th>
                     <th>Назва</th>
                     <th>Японська назва</th>
-                    <th>Опис</th>
-                    <th>Дата заснування</th>
                     <th>Дії</th>
                 </tr>
             </thead>
@@ -81,10 +71,8 @@
                         <td>@studio.Id</td>
                         <td>@studio.Name</td>
                         <td>@studio.JapaneseName</td>
-                        <td>@studio.Description</td>
-                        <td>@studio.FoundedDate.ToString("dd.MM.yyyy")</td>
                         <td class="actions">
-                            <button class="btn-warning" onclick="editStudio(@studio.Id, '@studio.Name', '@studio.JapaneseName', '@studio.Description', '@studio.FoundedDate.ToString("yyyy-MM-dd")')">
+                            <button class="btn-warning" onclick="editStudio(@studio.Id, '@studio.Name', '@studio.JapaneseName')">
                                 <i class="fas fa-edit"></i>
                             </button>
                             <form asp-action="DeleteStudio" method="post" style="display: inline;">
@@ -115,14 +103,6 @@
                 <label>Японська назва</label>
                 <input type="text" id="editStudioJapaneseName" name="JapaneseName" class="form-input" />
             </div>
-            <div class="form-group">
-                <label>Опис</label>
-                <textarea id="editStudioDescription" name="Description" class="form-textarea" rows="3"></textarea>
-            </div>
-            <div class="form-group">
-                <label>Дата заснування</label>
-                <input type="date" id="editStudioFoundedDate" name="FoundedDate" class="form-input" required />
-            </div>
             <div class="form-actions">
                 <button type="submit" class="btn-primary">Зберегти</button>
                 <button type="button" class="btn-secondary" onclick="hideEditForm()">Скасувати</button>
@@ -140,12 +120,10 @@
         document.getElementById('createForm').style.display = 'none';
     }
 
-    function editStudio(id, name, japaneseName, description, foundedDate) {
+    function editStudio(id, name, japaneseName) {
         document.getElementById('editStudioId').value = id;
         document.getElementById('editStudioName').value = name;
         document.getElementById('editStudioJapaneseName').value = japaneseName;
-        document.getElementById('editStudioDescription').value = description;
-        document.getElementById('editStudioFoundedDate').value = foundedDate;
         document.getElementById('editForm').style.display = 'flex';
     }
 

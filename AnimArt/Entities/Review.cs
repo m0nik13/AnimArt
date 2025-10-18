@@ -5,7 +5,6 @@ namespace AnimArt.Entities
 {
     public class Review : BaseEntity
     {
-        public int Id { get; set; }
         public int UserId { get; set; }
         public int AnimeId { get; set; }
         public string Title { get; set; }

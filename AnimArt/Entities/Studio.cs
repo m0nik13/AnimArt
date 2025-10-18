@@ -1,14 +1,11 @@
-﻿namespace AnimArt.Entities
+﻿// Entities/Studio.cs
+namespace AnimArt.Entities
 {
     public class Studio : BaseEntity
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string JapaneseName { get; set; }
-        public string Description { get; set; }
         public string LogoUrl { get; set; }
-        public DateTime FoundedDate { get; set; }
-        public string WebsiteUrl { get; set; }
 
         public virtual ICollection<AnimeStudio> AnimeStudios { get; set; }
     }

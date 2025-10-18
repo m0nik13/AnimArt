@@ -1,5 +1,6 @@
-﻿// Controllers/AdminController.cs
+﻿using System.Security.Claims;
 using AnimArt.Entities;
+using AnimArt.Entities.ViewModels;
 using AnimArt.Interfaces;
 using AnimArt.Repositories;
 using Microsoft.AspNetCore.Authorization;
@@ -63,7 +64,6 @@ public class AdminController : Controller
     {
         if (ModelState.IsValid && !string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
         {
-            // Перевірка на унікальність імені
             if (_userRepository.GetByUsername(Username) != null)
             {
                 TempData["ErrorMessage"] = "Користувач з таким іменем вже існує";
@@ -72,8 +72,7 @@ public class AdminController : Controller
 
             var user = new User
             {
-                Id = _userRepository.GetAll().Any() ?
-                    _userRepository.GetAll().Max(u => u.Id) + 1 : 1,
+                Id = _userRepository.GetAll().Any() ? _userRepository.GetAll().Max(u => u.Id) + 1 : 1,
                 Username = Username,
                 Role = Role == "Admin" ? UserRole.Admin : UserRole.User,
                 RegistrationDate = DateTime.Now,
@@ -97,6 +96,8 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult UpdateUser(int Id, string Username, string Role)
     {
+        Console.WriteLine($"UpdateUser called: Id={Id}, Username={Username}, Role={Role}");
+
         if (ModelState.IsValid)
         {
             var existingUser = _userRepository.GetById(Id);
@@ -110,6 +111,10 @@ public class AdminController : Controller
 
                 TempData["SuccessMessage"] = "Користувача успішно оновлено";
             }
+            else
+            {
+                TempData["ErrorMessage"] = "Користувача не знайдено";
+            }
         }
         else
         {
@@ -122,8 +127,17 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult DeleteUser(int id)
     {
+        Console.WriteLine($"DeleteUser called: id={id}");
+
+        var currentUserId = int.Parse(User.FindFirst("UserId")?.Value ?? "0");
+        if (id == currentUserId)
+        {
+            TempData["ErrorMessage"] = "Ви не можете видалити власний акаунт";
+            return RedirectToAction("Users");
+        }
+
         var user = _userRepository.GetById(id);
-        if (user != null && user.Role != UserRole.Admin)
+        if (user != null)
         {
             _userRepository.Remove(user);
             _userRepository.SaveChanges();
@@ -131,7 +145,7 @@ public class AdminController : Controller
         }
         else
         {
-            TempData["ErrorMessage"] = "Неможливо видалити адміністратора";
+            TempData["ErrorMessage"] = "Користувача не знайдено";
         }
         return RedirectToAction("Users");
     }
@@ -152,15 +166,15 @@ public class AdminController : Controller
 
     [HttpPost]
     public IActionResult CreateAnime(string Title, string OriginalTitle, string Description,
-                                   AnimeStatus Status, AnimeType Type, int TotalEpisodes,
-                                   DateTime ReleaseDate)
+                               AnimeStatus Status, AnimeType Type, int TotalEpisodes,
+                               DateTime ReleaseDate, int? DurationPerEpisode, string AgeRating,
+                               string PosterUrl, List<int> GenreIds, List<int> StudioIds, List<int> VoiceStudioIds)
     {
         if (ModelState.IsValid && !string.IsNullOrEmpty(Title))
         {
             var anime = new Anime
             {
-                Id = _animeRepository.GetAll().Any() ?
-                    _animeRepository.GetAll().Max(a => a.Id) + 1 : 1,
+                Id = _animeRepository.GetAll().Any() ? _animeRepository.GetAll().Max(a => a.Id) + 1 : 1,
                 Title = Title,
                 OriginalTitle = OriginalTitle ?? Title,
                 Description = Description ?? "",
@@ -169,8 +183,12 @@ public class AdminController : Controller
                 TotalEpisodes = TotalEpisodes,
                 ReleasedEpisodes = 0,
                 ReleaseDate = ReleaseDate,
-                DurationPerEpisode = 24, // За замовчуванням
-                AgeRating = "PG-13" // За замовчуванням
+                DurationPerEpisode = DurationPerEpisode ?? 24,
+                AgeRating = AgeRating ?? "PG-13",
+                PosterUrl = PosterUrl ?? "", // Додано постер
+                GenreIds = GenreIds ?? new List<int>(),
+                StudioIds = StudioIds ?? new List<int>(),
+                VoiceStudioIds = VoiceStudioIds ?? new List<int>()
             };
 
             _animeRepository.Add(anime);
@@ -189,7 +207,8 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult UpdateAnime(int Id, string Title, string OriginalTitle, string Description,
                                    AnimeStatus Status, AnimeType Type, int TotalEpisodes, int ReleasedEpisodes,
-                                   DateTime ReleaseDate)
+                                   DateTime ReleaseDate, int? DurationPerEpisode, string AgeRating,
+                                   string PosterUrl, List<int> GenreIds, List<int> StudioIds, List<int> VoiceStudioIds)
     {
         if (ModelState.IsValid)
         {
@@ -204,6 +223,12 @@ public class AdminController : Controller
                 existingAnime.TotalEpisodes = TotalEpisodes;
                 existingAnime.ReleasedEpisodes = ReleasedEpisodes;
                 existingAnime.ReleaseDate = ReleaseDate;
+                existingAnime.DurationPerEpisode = DurationPerEpisode ?? existingAnime.DurationPerEpisode;
+                existingAnime.AgeRating = AgeRating ?? existingAnime.AgeRating;
+                existingAnime.PosterUrl = PosterUrl ?? existingAnime.PosterUrl; // Додано оновлення постера
+                existingAnime.GenreIds = GenreIds ?? existingAnime.GenreIds;
+                existingAnime.StudioIds = StudioIds ?? existingAnime.StudioIds;
+                existingAnime.VoiceStudioIds = VoiceStudioIds ?? existingAnime.VoiceStudioIds;
 
                 _animeRepository.Update(existingAnime);
                 _animeRepository.SaveChanges();
@@ -222,6 +247,8 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult DeleteAnime(int id)
     {
+        Console.WriteLine($"DeleteAnime called: id={id}");
+
         var anime = _animeRepository.GetById(id);
         if (anime != null)
         {
@@ -231,7 +258,7 @@ public class AdminController : Controller
         }
         else
         {
-            TempData["ErrorMessage"] = "Помилка при видаленні аніме";
+            TempData["ErrorMessage"] = "Аніме не знайдено";
         }
         return RedirectToAction("Anime");
     }
@@ -244,16 +271,14 @@ public class AdminController : Controller
     }
 
     [HttpPost]
-    public IActionResult CreateGenre(string Name, string Description)
+    public IActionResult CreateGenre(string Name)
     {
         if (ModelState.IsValid && !string.IsNullOrEmpty(Name))
         {
             var genre = new Genre
             {
-                Id = _genreRepository.GetAll().Any() ?
-                    _genreRepository.GetAll().Max(g => g.Id) + 1 : 1,
-                Name = Name,
-                Description = Description ?? ""
+                Id = _genreRepository.GetAll().Any() ? _genreRepository.GetAll().Max(g => g.Id) + 1 : 1,
+                Name = Name
             };
 
             _genreRepository.Add(genre);
@@ -270,20 +295,25 @@ public class AdminController : Controller
     }
 
     [HttpPost]
-    public IActionResult UpdateGenre(int Id, string Name, string Description)
+    public IActionResult UpdateGenre(int Id, string Name)
     {
+        Console.WriteLine($"UpdateGenre called: Id={Id}, Name={Name}");
+
         if (ModelState.IsValid)
         {
             var existingGenre = _genreRepository.GetById(Id);
             if (existingGenre != null)
             {
                 existingGenre.Name = Name;
-                existingGenre.Description = Description;
 
                 _genreRepository.Update(existingGenre);
                 _genreRepository.SaveChanges();
 
                 TempData["SuccessMessage"] = "Жанр успішно оновлено";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Жанр не знайдено";
             }
         }
         else
@@ -297,6 +327,8 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult DeleteGenre(int id)
     {
+        Console.WriteLine($"DeleteGenre called: id={id}");
+
         var genre = _genreRepository.GetById(id);
         if (genre != null)
         {
@@ -306,10 +338,11 @@ public class AdminController : Controller
         }
         else
         {
-            TempData["ErrorMessage"] = "Помилка при видаленні жанру";
+            TempData["ErrorMessage"] = "Жанр не знайдено";
         }
         return RedirectToAction("Genres");
     }
+
 
     // Керування студіями
     public IActionResult Studios()
@@ -319,18 +352,15 @@ public class AdminController : Controller
     }
 
     [HttpPost]
-    public IActionResult CreateStudio(string Name, string JapaneseName, string Description, DateTime FoundedDate)
+    public IActionResult CreateStudio(string Name, string JapaneseName)
     {
         if (ModelState.IsValid && !string.IsNullOrEmpty(Name))
         {
             var studio = new Studio
             {
-                Id = _studioRepository.GetAll().Any() ?
-                    _studioRepository.GetAll().Max(s => s.Id) + 1 : 1,
+                Id = _studioRepository.GetAll().Any() ? _studioRepository.GetAll().Max(s => s.Id) + 1 : 1,
                 Name = Name,
-                JapaneseName = JapaneseName ?? "",
-                Description = Description ?? "",
-                FoundedDate = FoundedDate
+                JapaneseName = JapaneseName ?? ""
             };
 
             _studioRepository.Add(studio);
@@ -347,8 +377,10 @@ public class AdminController : Controller
     }
 
     [HttpPost]
-    public IActionResult UpdateStudio(int Id, string Name, string JapaneseName, string Description, DateTime FoundedDate)
+    public IActionResult UpdateStudio(int Id, string Name, string JapaneseName)
     {
+        Console.WriteLine($"UpdateStudio called: Id={Id}, Name={Name}");
+
         if (ModelState.IsValid)
         {
             var existingStudio = _studioRepository.GetById(Id);
@@ -356,13 +388,15 @@ public class AdminController : Controller
             {
                 existingStudio.Name = Name;
                 existingStudio.JapaneseName = JapaneseName;
-                existingStudio.Description = Description;
-                existingStudio.FoundedDate = FoundedDate;
 
                 _studioRepository.Update(existingStudio);
                 _studioRepository.SaveChanges();
 
                 TempData["SuccessMessage"] = "Студію успішно оновлено";
+            }
+            else
+            {
+                TempData["ErrorMessage"] = "Студію не знайдено";
             }
         }
         else
@@ -376,6 +410,8 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult DeleteStudio(int id)
     {
+        Console.WriteLine($"DeleteStudio called: id={id}");
+
         var studio = _studioRepository.GetById(id);
         if (studio != null)
         {
@@ -385,7 +421,7 @@ public class AdminController : Controller
         }
         else
         {
-            TempData["ErrorMessage"] = "Помилка при видаленні студії";
+            TempData["ErrorMessage"] = "Студію не знайдено";
         }
         return RedirectToAction("Studios");
     }
@@ -404,8 +440,7 @@ public class AdminController : Controller
         {
             var voiceStudio = new VoiceStudio
             {
-                Id = _voiceStudioRepository.GetAll().Any() ?
-                    _voiceStudioRepository.GetAll().Max(v => v.Id) + 1 : 1,
+                Id = _voiceStudioRepository.GetAll().Any() ? _voiceStudioRepository.GetAll().Max(v => v.Id) + 1 : 1,
                 Name = Name,
                 Country = Country ?? "",
                 Language = Language ?? ""
@@ -427,6 +462,8 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult UpdateVoiceStudio(int Id, string Name, string Country, string Language)
     {
+        Console.WriteLine($"UpdateVoiceStudio called: Id={Id}, Name={Name}");
+
         if (ModelState.IsValid)
         {
             var existingVoiceStudio = _voiceStudioRepository.GetById(Id);
@@ -441,6 +478,10 @@ public class AdminController : Controller
 
                 TempData["SuccessMessage"] = "Студію озвучення успішно оновлено";
             }
+            else
+            {
+                TempData["ErrorMessage"] = "Студію озвучення не знайдено";
+            }
         }
         else
         {
@@ -453,6 +494,8 @@ public class AdminController : Controller
     [HttpPost]
     public IActionResult DeleteVoiceStudio(int id)
     {
+        Console.WriteLine($"DeleteVoiceStudio called: id={id}");
+
         var voiceStudio = _voiceStudioRepository.GetById(id);
         if (voiceStudio != null)
         {
@@ -462,75 +505,9 @@ public class AdminController : Controller
         }
         else
         {
-            TempData["ErrorMessage"] = "Помилка при видаленні студії озвучення";
+            TempData["ErrorMessage"] = "Студію озвучення не знайдено";
         }
         return RedirectToAction("VoiceStudios");
     }
 
-    // Керування відгуками
-    public IActionResult Reviews()
-    {
-        var reviews = _reviewRepository.GetAll();
-        return View(reviews);
-    }
-
-    [HttpPost]
-    public IActionResult DeleteReview(int id)
-    {
-        var review = _reviewRepository.GetById(id);
-        if (review != null)
-        {
-            _reviewRepository.Remove(review);
-            _reviewRepository.SaveChanges();
-            TempData["SuccessMessage"] = "Відгук успішно видалено";
-        }
-        else
-        {
-            TempData["ErrorMessage"] = "Помилка при видаленні відгуку";
-        }
-        return RedirectToAction("Reviews");
-    }
-
-    // Керування рейтингами
-    public IActionResult Ratings()
-    {
-        var ratings = _ratingRepository.GetAll();
-        return View(ratings);
-    }
-
-    [HttpPost]
-    public IActionResult DeleteRating(int id)
-    {
-        var rating = _ratingRepository.GetById(id);
-        if (rating != null)
-        {
-            _ratingRepository.Remove(rating);
-            _ratingRepository.SaveChanges();
-            TempData["SuccessMessage"] = "Рейтинг успішно видалено";
-        }
-        else
-        {
-            TempData["ErrorMessage"] = "Помилка при видаленні рейтингу";
-        }
-        return RedirectToAction("Ratings");
-    }
-}
-
-public class AdminStatsViewModel
-{
-    public int TotalUsers { get; set; }
-    public int TotalAnime { get; set; }
-    public int TotalGenres { get; set; }
-    public int TotalStudios { get; set; }
-    public int TotalVoiceStudios { get; set; }
-    public int TotalReviews { get; set; }
-    public IEnumerable<User> RecentUsers { get; set; }
-}
-
-public class AnimeManagementViewModel
-{
-    public IEnumerable<Anime> AnimeList { get; set; }
-    public IEnumerable<Genre> Genres { get; set; }
-    public IEnumerable<Studio> Studios { get; set; }
-    public IEnumerable<VoiceStudio> VoiceStudios { get; set; }
 }

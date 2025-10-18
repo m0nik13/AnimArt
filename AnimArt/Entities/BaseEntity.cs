@@ -1,4 +1,5 @@
-﻿using AnimArt.Interfaces;
+﻿// Entities/BaseEntity.cs
+using AnimArt.Interfaces;
 namespace AnimArt.Entities
 {
     public abstract class BaseEntity : IEntity

@@ -1,11 +1,3 @@
-wwwroot\assets\dandadan.jpg
-wwwroot\assets\konosuba.jpg
-wwwroot\assets\logo.png
-wwwroot\assets\logo1.png
-wwwroot\assets\ocean.jpg
-wwwroot\assets\porce....jpg
-wwwroot\assets\Reinkar.jpg
-wwwroot\assets\Spy.jpg
 wwwroot\css\admin.css
 wwwroot\css\site.css
 wwwroot\favicon.ico

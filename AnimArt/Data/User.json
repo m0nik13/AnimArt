@@ -1,38 +1,26 @@
 [
   {
-    "Username": "admin",
-    "PasswordHash": "$2a$11$LJDFxxlmk8YyXnjGdYklN.lICIJemrLclfFwHJOXG99AMfcRJJfk2",
-    "AvatarUrl": "",
-    "RegistrationDate": "2025-10-15T11:33:11.2018499+03:00",
-    "LastLogin": "2025-10-15T11:33:19.60226+03:00",
-    "Role": 1,
-    "UserAnimeLists": null,
-    "Reviews": null,
-    "Ratings": null,
-    "Id": 4
-  },
-  {
-    "Username": "admin1",
-    "PasswordHash": "$2a$11$LXayPTqzUqDukQv.WUtlD.HUASYRsUn0f.9sdNPOg/6g3hJ75ZRJS",
-    "AvatarUrl": "",
-    "RegistrationDate": "2025-10-15T11:15:42.1495427+03:00",
-    "LastLogin": "2025-10-15T11:17:15.2029495+03:00",
-    "Role": 1,
-    "UserAnimeLists": null,
-    "Reviews": null,
-    "Ratings": null,
-    "Id": 3
-  },
-  {
     "Username": "user",
-    "PasswordHash": "$2a$11$G8KeojoTTZwdzvWQ2Htkg.Qrzvobamk6prYjiueLHdi2zXnIH3lCO",
+    "PasswordHash": "$2a$11$tJiO0XptLiAPpAU/YBOe..m0KTQiubLXmZkv.QZI65Z3XBKrDcJdm",
     "AvatarUrl": "",
-    "RegistrationDate": "2025-10-15T11:53:02.5019122+03:00",
-    "LastLogin": "2025-10-15T11:53:05.8086753+03:00",
+    "RegistrationDate": "2025-10-18T09:53:06.8147+03:00",
+    "LastLogin": "2025-10-18T10:14:13.9809328+03:00",
     "Role": 0,
     "UserAnimeLists": null,
     "Reviews": null,
     "Ratings": null,
     "Id": 5
+  },
+  {
+    "Username": "admin",
+    "PasswordHash": "$2a$11$LJDFxxlmk8YyXnjGdYklN.lICIJemrLclfFwHJOXG99AMfcRJJfk2",
+    "AvatarUrl": "",
+    "RegistrationDate": "2025-10-15T11:33:11.2018499+03:00",
+    "LastLogin": "2025-10-18T10:15:25.2895687+03:00",
+    "Role": 1,
+    "UserAnimeLists": null,
+    "Reviews": null,
+    "Ratings": null,
+    "Id": 4
   }
 ]

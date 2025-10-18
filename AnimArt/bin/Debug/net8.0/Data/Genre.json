@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "Name": "\u0431\u043E\u0439\u043E\u0432\u0438\u043A",
+    "AnimeGenres": null,
+    "Id": 2
+  },
+  {
+    "Name": "\u043A\u043E\u043C\u0435\u0434\u0456\u044F",
+    "AnimeGenres": null,
+    "Id": 1
+  },
+  {
+    "Name": "\u043D\u0430\u0434\u043F\u0440\u0438\u0440\u043E\u0434\u043D\u0435",
+    "AnimeGenres": null,
+    "Id": 3
+  },
+  {
+    "Name": "\u043D\u0430\u0443\u043A\u043E\u0432\u0430 \u0444\u0430\u043D\u0442\u0430\u0441\u0442\u0438\u043A\u0430",
+    "AnimeGenres": null,
+    "Id": 4
+  }
+]

@@ -1,8 +1,8 @@
-﻿namespace AnimArt.Entities
+﻿// Entities/UserLists.cs
+namespace AnimArt.Entities
 {
     public class UserLists : BaseEntity
     {
-        public int Id { get; set; }
         public int UserId { get; set; }
         public int AnimeId { get; set; }
         public AnimeListStatus Status { get; set; }

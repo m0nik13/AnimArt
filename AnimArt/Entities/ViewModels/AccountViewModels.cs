@@ -1,4 +1,5 @@
 ﻿
+// Entities/ViewModels/AccountViewModels.cs
 using System.ComponentModel.DataAnnotations;
 
 public class LoginViewModel
@@ -30,7 +31,6 @@ public class RegisterViewModel
     [Required(ErrorMessage = "Оберіть роль")]
     public string Role { get; set; } = "User";
 }
-// Models/ViewModels/ProfileViewModel.cs
 public class ProfileViewModel
 {
     public string Username { get; set; } = string.Empty;
