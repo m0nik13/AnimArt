@@ -1,14 +1,12 @@
 ﻿// Entities/User.cs
+using AnimArt.Interfaces;
 using BCrypt.Net;
-using Microsoft.AspNetCore.Identity;
 
 namespace AnimArt.Entities
 {
     public class User : BaseEntity
     {
-        public int Id { get; set; }
         public string Username { get; set; }
-        public string Email { get; set; }
 
         private string _passwordHash;
         public string PasswordHash
@@ -26,14 +24,15 @@ namespace AnimArt.Entities
         public virtual ICollection<UserLists> UserAnimeLists { get; set; }
         public virtual ICollection<Review> Reviews { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
+
         public User()
         {
             Username = string.Empty;
-            Email = string.Empty;
             PasswordHash = string.Empty;
             AvatarUrl = string.Empty;
             Role = UserRole.User;
         }
+
         public void SetPassword(string password)
         {
             PasswordHash = BCrypt.Net.BCrypt.HashPassword(password);
@@ -45,7 +44,6 @@ namespace AnimArt.Entities
         public enum UserRole
         {
             User,
-            Moderator,
             Admin
         }
     }

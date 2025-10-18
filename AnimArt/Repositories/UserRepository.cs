@@ -16,10 +16,6 @@ namespace AnimArt.Repositories
             return GetAll().FirstOrDefault(u => u.Username == username);
         }
 
-        public User GetByEmail(string email)
-        {
-            return GetAll().FirstOrDefault(u => u.Email == email);
-        }
 
         public IEnumerable<User> GetByRole(UserRole role)
         {

@@ -1,0 +1,150 @@
+﻿@model IEnumerable<VoiceStudio>
+@{
+    ViewData["Title"] = "Керування студіями озвучення";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-container">
+    <div class="admin-header">
+        <h1 class="admin-title">
+            <i class="fas fa-microphone"></i>
+            Керування студіями озвучення
+        </h1>
+        <p class="admin-subtitle">Додавання, редагування та видалення студій озвучення</p>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-error">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <div class="admin-actions">
+        <button class="btn-primary" onclick="showCreateForm()">
+            <i class="fas fa-plus"></i>
+            Додати студію озвучення
+        </button>
+    </div>
+
+    <!-- Форма створення студії озвучення -->
+    <div id="createForm" class="form-modal" style="display: none;">
+        <div class="form-content">
+            <h3>Додати нову студію озвучення</h3>
+            <form asp-action="CreateVoiceStudio" method="post">
+                <div class="form-group">
+                    <label>Назва студії *</label>
+                    <input type="text" name="Name" class="form-input" required />
+                </div>
+                <div class="form-group">
+                    <label>Країна</label>
+                    <input type="text" name="Country" class="form-input" />
+                </div>
+                <div class="form-group">
+                    <label>Мова</label>
+                    <input type="text" name="Language" class="form-input" />
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Створити</button>
+                    <button type="button" class="btn-secondary" onclick="hideCreateForm()">Скасувати</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Назва</th>
+                    <th>Країна</th>
+                    <th>Мова</th>
+                    <th>Дії</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var voiceStudio in Model)
+                {
+                    <tr>
+                        <td>@voiceStudio.Id</td>
+                        <td>@voiceStudio.Name</td>
+                        <td>@voiceStudio.Country</td>
+                        <td>@voiceStudio.Language</td>
+                        <td class="actions">
+                            <button class="btn-warning" onclick="editVoiceStudio(@voiceStudio.Id, '@voiceStudio.Name', '@voiceStudio.Country', '@voiceStudio.Language')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <form asp-action="DeleteVoiceStudio" method="post" style="display: inline;">
+                                <input type="hidden" name="id" value="@voiceStudio.Id" />
+                                <button type="submit" class="btn-danger" onclick="return confirm('Ви впевнені?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Форма редагування студії озвучення -->
+<div id="editForm" class="form-modal" style="display: none;">
+    <div class="form-content">
+        <h3>Редагувати студію озвучення</h3>
+        <form asp-action="UpdateVoiceStudio" method="post">
+            <input type="hidden" id="editVoiceStudioId" name="Id" />
+            <div class="form-group">
+                <label>Назва студії</label>
+                <input type="text" id="editVoiceStudioName" name="Name" class="form-input" required />
+            </div>
+            <div class="form-group">
+                <label>Країна</label>
+                <input type="text" id="editVoiceStudioCountry" name="Country" class="form-input" />
+            </div>
+            <div class="form-group">
+                <label>Мова</label>
+                <input type="text" id="editVoiceStudioLanguage" name="Language" class="form-input" />
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Зберегти</button>
+                <button type="button" class="btn-secondary" onclick="hideEditForm()">Скасувати</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function showCreateForm() {
+        document.getElementById('createForm').style.display = 'flex';
+    }
+
+    function hideCreateForm() {
+        document.getElementById('createForm').style.display = 'none';
+    }
+
+    function editVoiceStudio(id, name, country, language) {
+        document.getElementById('editVoiceStudioId').value = id;
+        document.getElementById('editVoiceStudioName').value = name;
+        document.getElementById('editVoiceStudioCountry').value = country;
+        document.getElementById('editVoiceStudioLanguage').value = language;
+        document.getElementById('editForm').style.display = 'flex';
+    }
+
+    function hideEditForm() {
+        document.getElementById('editForm').style.display = 'none';
+    }
+
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('form-modal')) {
+            e.target.style.display = 'none';
+        }
+    });
+</script>

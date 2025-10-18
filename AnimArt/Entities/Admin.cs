@@ -1,4 +1,5 @@
-﻿namespace AnimArt.Entities
+﻿// Entities/Admin.cs
+namespace AnimArt.Entities
 {
     public class Admin : User
     {

@@ -37,3 +37,8 @@ C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\bin\Debug\net8.0\BCrypt.Net-Next
 C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\obj\Debug\net8.0\AnimArt.csproj.Up2Date
 C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\bin\Debug\net8.0\Data\Anime.json
 C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\bin\Debug\net8.0\Data\User.json
+C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\bin\Debug\net8.0\Data\Review.json
+C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\bin\Debug\net8.0\Data\Genre.json
+C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\bin\Debug\net8.0\Data\Studio.json
+C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\bin\Debug\net8.0\Data\VoiceStudio.json
+C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\bin\Debug\net8.0\Data\Rating.json

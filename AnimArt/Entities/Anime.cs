@@ -1,12 +1,10 @@
-﻿// Entities/Anime.cs
-using AnimArt.Interfaces;
-using Microsoft.AspNetCore.Mvc.ViewEngines;
+﻿using AnimArt.Interfaces;
+using System.Text.Json.Serialization;
 
 namespace AnimArt.Entities
 {
     public class Anime : BaseEntity
     {
-        public int Id { get; set; }
         public string Title { get; set; }
         public string OriginalTitle { get; set; }
         public string Description { get; set; }
@@ -21,13 +19,10 @@ namespace AnimArt.Entities
         public int DurationPerEpisode { get; set; }
         public string AgeRating { get; set; }
 
-        // Навігаційні властивості
-        public virtual ICollection<AnimeGenre> AnimeGenres { get; set; }
-        public virtual ICollection<AnimeStudio> AnimeStudios { get; set; }
-        public virtual ICollection<AnimeVoiceStudio> AnimeVoiceStudios { get; set; }
-        public virtual ICollection<Review> Reviews { get; set; }
-        public virtual ICollection<Rating> Ratings { get; set; }
-        public virtual ICollection<UserLists> UserAnimeLists { get; set; }
+        // Списки ID для зв'язків
+        public List<int> GenreIds { get; set; } = new List<int>();
+        public List<int> StudioIds { get; set; } = new List<int>();
+        public List<int> VoiceStudioIds { get; set; } = new List<int>();
 
         public Anime()
         {

@@ -1,0 +1,8 @@
+C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\wwwroot\assets\dandadan.jpg
+C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\wwwroot\assets\konosuba.jpg
+C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\wwwroot\assets\logo.png
+C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\wwwroot\assets\logo1.png
+C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\wwwroot\assets\ocean.jpg
+C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\wwwroot\assets\porce....jpg
+C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\wwwroot\assets\Reinkar.jpg
+C:\Users\Anatoloii\source\repos\AnimArt\AnimArt\wwwroot\assets\Spy.jpg

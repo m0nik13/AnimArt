@@ -1,0 +1,293 @@
+﻿@model IEnumerable<User>
+@using AnimArt.Entities
+@using AnimArt.Interfaces
+@{
+    ViewData["Title"] = "Керування користувачами";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-container">
+    <div class="admin-header">
+        <h1 class="admin-title">
+            <i class="fas fa-users-cog"></i>
+            Керування користувачами
+        </h1>
+        <p class="admin-subtitle">Створення, редагування та видалення користувачів</p>
+    </div>
+
+    <div class="admin-actions">
+        <button class="btn-primary" onclick="showCreateForm()">
+            <i class="fas fa-plus"></i>
+            Додати користувача
+        </button>
+    </div>
+
+    <!-- Форма створення користувача -->
+    <div id="createForm" class="form-modal" style="display: none;">
+        <div class="form-content">
+            <h3>Додати нового користувача</h3>
+            <form asp-action="CreateUser" method="post">
+                <div class="form-group">
+                    <label>Ім'я користувача</label>
+                    <input type="text" name="Username" class="form-input" required />
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" name="Password" class="form-input" required />
+                </div>
+                <div class="form-group">
+                    <label>Роль</label>
+                    <select name="Role" class="form-input">
+                        <option value="User">Користувач</option>
+                        <option value="Admin">Адміністратор</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Створити</button>
+                    <button type="button" class="btn-secondary" onclick="hideCreateForm()">Скасувати</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Ім'я користувача</th>
+                    <th>Роль</th>
+                    <th>Дата реєстрації</th>
+                    <th>Останній вхід</th>
+                    <th>Дії</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Id</td>
+                        <td>@user.Username</td>
+                        <td>
+                            <span class="role-badge @user.Role.ToString().ToLower()">@user.Role</span>
+                        </td>
+                        <td>@user.RegistrationDate.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>@user.LastLogin.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td class="actions">
+                            <button class="btn-warning" onclick="editUser(@user.Id, '@user.Username', '@user.Role')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <form asp-action="DeleteUser" method="post" style="display: inline;">
+                                <input type="hidden" name="id" value="@user.Id" />
+                                <button type="submit" class="btn-danger" onclick="return confirm('Ви впевнені, що хочете видалити цього користувача?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Форма редагування користувача -->
+<div id="editForm" class="form-modal" style="display: none;">
+    <div class="form-content">
+        <h3>Редагувати користувача</h3>
+        <form asp-action="UpdateUser" method="post">
+            <input type="hidden" id="editUserId" name="Id" />
+            <div class="form-group">
+                <label>Ім'я користувача</label>
+                <input type="text" id="editUsername" name="Username" class="form-input" required />
+            </div>
+            <div class="form-group">
+                <label>Роль</label>
+                <select id="editUserRole" name="Role" class="form-input">
+                    <option value="User">Користувач</option>
+                    <option value="Admin">Адміністратор</option>
+                </select>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Зберегти</button>
+                <button type="button" class="btn-secondary" onclick="hideEditForm()">Скасувати</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .admin-actions {
+        margin-bottom: 20px;
+    }
+
+    .btn-primary, .btn-secondary, .btn-warning, .btn-danger {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .btn-primary {
+        background: #bb86fc;
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background: #9b6bd4;
+        }
+
+    .btn-secondary {
+        background: #666;
+        color: white;
+    }
+
+    .btn-warning {
+        background: #ffb74d;
+        color: white;
+    }
+
+    .btn-danger {
+        background: #cf6679;
+        color: white;
+    }
+
+    .table-container {
+        background: #252525;
+        border-radius: 12px;
+        border: 1px solid #333;
+        overflow: hidden;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        .data-table th {
+            background: #1e1e1e;
+            color: #bb86fc;
+            font-weight: 600;
+        }
+
+        .data-table tr:hover {
+            background: #2a2a2a;
+        }
+
+    .role-badge {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+        .role-badge.user {
+            background: rgba(3, 218, 198, 0.2);
+            color: #03dac6;
+        }
+
+        .role-badge.admin {
+            background: rgba(187, 134, 252, 0.2);
+            color: #bb86fc;
+        }
+
+    .actions {
+        display: flex;
+        gap: 5px;
+    }
+
+    .form-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .form-content {
+        background: #252525;
+        padding: 30px;
+        border-radius: 12px;
+        border: 1px solid #333;
+        width: 90%;
+        max-width: 500px;
+    }
+
+        .form-content h3 {
+            color: #bb86fc;
+            margin-bottom: 20px;
+        }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+        .form-group label {
+            display: block;
+            color: #e0e0e0;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+    .form-input {
+        width: 100%;
+        padding: 10px;
+        background: #1e1e1e;
+        border: 1px solid #333;
+        border-radius: 6px;
+        color: #e0e0e0;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+        margin-top: 20px;
+    }
+</style>
+
+<script>
+    function showCreateForm() {
+        document.getElementById('createForm').style.display = 'flex';
+    }
+
+    function hideCreateForm() {
+        document.getElementById('createForm').style.display = 'none';
+    }
+
+    function editUser(id, username, role) {
+        console.log('Editing user:', id, username, role);
+        document.getElementById('editUserId').value = id;
+        document.getElementById('editUsername').value = username;
+        document.getElementById('editUserRole').value = role;
+        document.getElementById('editForm').style.display = 'flex';
+    }
+
+    function hideEditForm() {
+        document.getElementById('editForm').style.display = 'none';
+    }
+
+    // Закриття модальних вікон при кліку на фон
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('form-modal')) {
+            e.target.style.display = 'none';
+        }
+    });
+</script>

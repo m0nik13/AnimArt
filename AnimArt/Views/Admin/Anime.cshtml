@@ -1,0 +1,586 @@
+﻿@using AnimArt.Entities.ViewModels
+@model AnimeManagementViewModel
+@{
+    ViewData["Title"] = "Керування аніме";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-container">
+    <div class="admin-header">
+        <h1 class="admin-title">
+            <i class="fas fa-film"></i>
+            Керування аніме
+        </h1>
+        <p class="admin-subtitle">Додавання, редагування та видалення аніме</p>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-error">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <div class="admin-actions">
+        <button class="btn-primary" onclick="showCreateForm()">
+            <i class="fas fa-plus"></i>
+            Додати аніме
+        </button>
+    </div>
+
+    <!-- Форма створення аніме -->
+    <div id="createForm" class="form-modal" style="display: none;">
+        <div class="form-content form-content-wide compact-form">
+            <h3>Додати нове аніме</h3>
+            <form asp-action="CreateAnime" method="post">
+                <div class="form-tabs">
+                    <div class="form-tab active" onclick="switchTab('create', 'main')">Основне</div>
+                    <div class="form-tab" onclick="switchTab('create', 'details')">Деталі</div>
+                    <div class="form-tab" onclick="switchTab('create', 'relations')">Зв'язки</div>
+                </div>
+
+                <!-- Основна інформація -->
+                <div id="create-tab-main" class="form-tab-content active">
+                    <div class="form-columns">
+                        <div class="form-group">
+                            <label>Назва *</label>
+                            <input type="text" name="Title" class="form-input" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Оригінальна назва</label>
+                            <input type="text" name="OriginalTitle" class="form-input" />
+                        </div>
+                    </div>
+                    <div class="form-group form-full-width">
+                        <label>Посилання на постер (URL)</label>
+                        <input type="url" name="PosterUrl" class="form-input" placeholder="https://example.com/poster.jpg" />
+                    </div>
+                    <div class="form-group form-full-width">
+                        <label>Опис</label>
+                        <textarea name="Description" class="form-textarea" rows="3" placeholder="Короткий опис аніме..."></textarea>
+                    </div>
+
+                    <div class="form-columns">
+                        <div class="form-group">
+                            <label>Статус *</label>
+                            <select name="Status" class="form-input" required>
+                                <option value="Ongoing">Онґоїнг</option>
+                                <option value="Completed">Завершено</option>
+                                <option value="Announced">Анонсовано</option>
+                                <option value="Hiatus">Перерва</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Тип *</label>
+                            <select name="Type" class="form-input" required>
+                                <option value="TV">Серіал</option>
+                                <option value="Movie">Фільм</option>
+                                <option value="OVA">OVA</option>
+                                <option value="ONA">ONA</option>
+                                <option value="Special">Спешл</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Детальна інформація -->
+                <div id="create-tab-details" class="form-tab-content">
+                    <div class="form-columns">
+                        <div class="form-group">
+                            <label>Кількість епізодів</label>
+                            <input type="number" name="TotalEpisodes" class="form-input" value="12" min="1" />
+                        </div>
+                        <div class="form-group">
+                            <label>Тривалість (хв)</label>
+                            <input type="number" name="DurationPerEpisode" class="form-input" value="24" min="1" />
+                        </div>
+                    </div>
+
+                    <div class="form-columns">
+                        <div class="form-group">
+                            <label>Віковий рейтинг</label>
+                            <select name="AgeRating" class="form-input">
+                                <option value="G">G</option>
+                                <option value="PG">PG</option>
+                                <option value="PG-13" selected>PG-13</option>
+                                <option value="R">R</option>
+                                <option value="R+">R+</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Дата виходу *</label>
+                            <input type="date" name="ReleaseDate" class="form-input" required />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Зв'язки -->
+                <div id="create-tab-relations" class="form-tab-content">
+                    <div class="form-columns">
+                        <div class="form-group">
+                            <label>Жанри</label>
+                            <div class="multiselect-container">
+                                @foreach (var genre in Model.Genres)
+                                {
+                                    <label class="multiselect-option">
+                                        <input type="checkbox" name="GenreIds" value="@genre.Id" />
+                                        @genre.Name
+                                    </label>
+                                }
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Студії</label>
+                            <div class="multiselect-container">
+                                @foreach (var studio in Model.Studios)
+                                {
+                                    <label class="multiselect-option">
+                                        <input type="checkbox" name="StudioIds" value="@studio.Id" />
+                                        @studio.Name
+                                    </label>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group form-full-width">
+                        <label>Студії озвучення</label>
+                        <div class="multiselect-container">
+                            @foreach (var voiceStudio in Model.VoiceStudios)
+                            {
+                                <label class="multiselect-option">
+                                    <input type="checkbox" name="VoiceStudioIds" value="@voiceStudio.Id" />
+                                    @voiceStudio.Name
+                                </label>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Створити</button>
+                    <button type="button" class="btn-secondary" onclick="hideCreateForm()">Скасувати</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Компактна таблиця -->
+    <div class="table-container">
+        <table class="data-table compact-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Назва</th>
+                    <th>Статус</th>
+                    <th>Тип</th>
+                    <th>Серій</th>
+                    <th>Дата</th>
+                    <th>Дії</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var animeItem in Model.AnimeList)
+                {
+                    <tr>
+                        <td>@animeItem.Id</td>
+                        <td>
+                            <div class="anime-title">@animeItem.Title</div>
+                            @if (!string.IsNullOrEmpty(animeItem.OriginalTitle))
+                            {
+                                <div class="anime-original-title">@animeItem.OriginalTitle</div>
+                            }
+                        </td>
+                        <td>
+                            <span class="status-badge @animeItem.Status.ToString().ToLower()">@animeItem.Status</span>
+                        </td>
+                        <td>@animeItem.Type</td>
+                        <td>@animeItem.TotalEpisodes</td>
+                        <td>@animeItem.ReleaseDate.ToString("MMM yyyy")</td>
+                        <td class="actions">
+                            <button class="btn-warning btn-sm edit-anime-btn"
+                                    data-id="@animeItem.Id"
+                                    data-title="@animeItem.Title"
+                                    data-original-title="@animeItem.OriginalTitle"
+                                    data-description="@animeItem.Description"
+                                    data-status="@animeItem.Status"
+                                    data-type="@animeItem.Type"
+                                    data-total-episodes="@animeItem.TotalEpisodes"
+                                    data-released-episodes="@animeItem.ReleasedEpisodes"
+                                    data-release-date="@animeItem.ReleaseDate.ToString("yyyy-MM-dd")"
+                                    data-duration="@animeItem.DurationPerEpisode"
+                                    data-age-rating="@animeItem.AgeRating"
+                                    data-genre-ids="@string.Join(",", animeItem.GenreIds ?? new List<int>())"
+                                    data-studio-ids="@string.Join(",", animeItem.StudioIds ?? new List<int>())"
+                                    data-voice-studio-ids="@string.Join(",", animeItem.VoiceStudioIds ?? new List<int>())">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <form asp-action="DeleteAnime" method="post" style="display: inline;">
+                                <input type="hidden" name="id" value="@animeItem.Id" />
+                                <button type="submit" class="btn-danger btn-sm" onclick="return confirm('Видалити це аніме?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Форма редагування аніме -->
+<div id="editForm" class="form-modal" style="display: none;">
+    <div class="form-content form-content-wide compact-form">
+        <h3>Редагувати аніме</h3>
+        <form asp-action="UpdateAnime" method="post">
+            <input type="hidden" id="editAnimeId" name="Id" />
+
+            <div class="form-tabs">
+                <div class="form-tab active" onclick="switchTab('edit', 'main')">Основне</div>
+                <div class="form-tab" onclick="switchTab('edit', 'details')">Деталі</div>
+                <div class="form-tab" onclick="switchTab('edit', 'relations')">Зв'язки</div>
+            </div>
+
+            <!-- Основна інформація -->
+            <div id="edit-tab-main" class="form-tab-content active">
+                <div class="form-columns">
+                    <div class="form-group">
+                        <label>Назва *</label>
+                        <input type="text" id="editAnimeTitle" name="Title" class="form-input" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Оригінальна назва</label>
+                        <input type="text" id="editAnimeOriginalTitle" name="OriginalTitle" class="form-input" />
+                    </div>
+                </div>
+                <div class="form-group form-full-width">
+                    <label>Посилання на постер (URL)</label>
+                    <input type="url" id="editAnimePosterUrl" name="PosterUrl" class="form-input" placeholder="https://example.com/poster.jpg" />
+                </div>
+                <div class="form-group form-full-width">
+                    <label>Опис</label>
+                    <textarea id="editAnimeDescription" name="Description" class="form-textarea" rows="3"></textarea>
+                </div>
+
+                <div class="form-columns">
+                    <div class="form-group">
+                        <label>Статус *</label>
+                        <select id="editAnimeStatus" name="Status" class="form-input" required>
+                            <option value="Ongoing">Онґоїнг</option>
+                            <option value="Completed">Завершено</option>
+                            <option value="Announced">Анонсовано</option>
+                            <option value="Hiatus">Перерва</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Тип *</label>
+                        <select id="editAnimeType" name="Type" class="form-input" required>
+                            <option value="TV">TV Серіал</option>
+                            <option value="Movie">Фільм</option>
+                            <option value="OVA">OVA</option>
+                            <option value="ONA">ONA</option>
+                            <option value="Special">Спешл</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Детальна інформація -->
+            <div id="edit-tab-details" class="form-tab-content">
+                <div class="form-columns">
+                    <div class="form-group">
+                        <label>Загальна кількість серій</label>
+                        <input type="number" id="editAnimeTotalEpisodes" name="TotalEpisodes" class="form-input" min="1" />
+                    </div>
+                    <div class="form-group">
+                        <label>Випущено серій</label>
+                        <input type="number" id="editAnimeReleasedEpisodes" name="ReleasedEpisodes" class="form-input" min="0" />
+                    </div>
+                </div>
+
+                <div class="form-columns">
+                    <div class="form-group">
+                        <label>Тривалість (хв)</label>
+                        <input type="number" id="editAnimeDuration" name="DurationPerEpisode" class="form-input" min="1" />
+                    </div>
+                    <div class="form-group">
+                        <label>Віковий рейтинг</label>
+                        <input type="text" id="editAnimeAgeRating" name="AgeRating" class="form-input" />
+                    </div>
+                </div>
+
+                <div class="form-group form-full-width">
+                    <label>Дата виходу *</label>
+                    <input type="date" id="editAnimeReleaseDate" name="ReleaseDate" class="form-input" required />
+                </div>
+            </div>
+
+            <!-- Зв'язки -->
+            <div id="edit-tab-relations" class="form-tab-content">
+                <div class="form-columns">
+                    <div class="form-group">
+                        <label>Жанри</label>
+                        <div id="editAnimeGenres" class="multiselect-container">
+                            @foreach (var genre in Model.Genres)
+                            {
+                                <label class="multiselect-option">
+                                    <input type="checkbox" name="GenreIds" value="@genre.Id" />
+                                    @genre.Name
+                                </label>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Студії</label>
+                        <div id="editAnimeStudios" class="multiselect-container">
+                            @foreach (var studio in Model.Studios)
+                            {
+                                <label class="multiselect-option">
+                                    <input type="checkbox" name="StudioIds" value="@studio.Id" />
+                                    @studio.Name
+                                </label>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group form-full-width">
+                    <label>Студії озвучення</label>
+                    <div id="editAnimeVoiceStudios" class="multiselect-container">
+                        @foreach (var voiceStudio in Model.VoiceStudios)
+                        {
+                            <label class="multiselect-option">
+                                <input type="checkbox" name="VoiceStudioIds" value="@voiceStudio.Id" />
+                                @voiceStudio.Name
+                            </label>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Зберегти</button>
+                <button type="button" class="btn-secondary" onclick="hideEditForm()">Скасувати</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Функції для управління формами
+    function showCreateForm() {
+        document.getElementById('createForm').style.display = 'flex';
+        resetTabs('create');
+    }
+
+    function hideCreateForm() {
+        document.getElementById('createForm').style.display = 'none';
+    }
+
+    function editAnime(id, title, originalTitle, description, status, type, totalEpisodes, releasedEpisodes, releaseDate, duration, ageRating, posterUrl, genreIds, studioIds, voiceStudioIds) {
+    console.log('Editing anime:', id, title);
+
+    try {
+        // Основні поля
+        document.getElementById('editAnimeId').value = id;
+        document.getElementById('editAnimeTitle').value = title || '';
+        document.getElementById('editAnimeOriginalTitle').value = originalTitle || '';
+        document.getElementById('editAnimeDescription').value = description || '';
+        document.getElementById('editAnimeStatus').value = status || 'Ongoing';
+        document.getElementById('editAnimeType').value = type || 'TV';
+        document.getElementById('editAnimeTotalEpisodes').value = totalEpisodes || 12;
+        document.getElementById('editAnimeReleasedEpisodes').value = releasedEpisodes || 0;
+        document.getElementById('editAnimeReleaseDate').value = releaseDate || '';
+        document.getElementById('editAnimeDuration').value = duration || 24;
+        document.getElementById('editAnimeAgeRating').value = ageRating || 'PG-13';
+        document.getElementById('editAnimePosterUrl').value = posterUrl || '';
+
+            // Встановлення вибраних жанрів
+            const genreCheckboxes = document.querySelectorAll('#editAnimeGenres input[type="checkbox"]');
+            genreCheckboxes.forEach(checkbox => {
+                const value = parseInt(checkbox.value);
+                checkbox.checked = Array.isArray(genreIds) ? genreIds.includes(value) : false;
+                updateOptionClass(checkbox);
+            });
+
+            // Встановлення вибраних студій
+            const studioCheckboxes = document.querySelectorAll('#editAnimeStudios input[type="checkbox"]');
+            studioCheckboxes.forEach(checkbox => {
+                const value = parseInt(checkbox.value);
+                checkbox.checked = Array.isArray(studioIds) ? studioIds.includes(value) : false;
+                updateOptionClass(checkbox);
+            });
+
+            // Встановлення вибраних студій озвучення
+            const voiceStudioCheckboxes = document.querySelectorAll('#editAnimeVoiceStudios input[type="checkbox"]');
+            voiceStudioCheckboxes.forEach(checkbox => {
+                const value = parseInt(checkbox.value);
+                checkbox.checked = Array.isArray(voiceStudioIds) ? voiceStudioIds.includes(value) : false;
+                updateOptionClass(checkbox);
+            });
+
+            document.getElementById('editForm').style.display = 'flex';
+            resetTabs('edit');
+        } catch (error) {
+            console.error('Error in editAnime function:', error);
+            alert('Помилка при відкритті форми редагування. Перевірте консоль для деталей.');
+        }
+    }
+
+    function hideEditForm() {
+        document.getElementById('editForm').style.display = 'none';
+    }
+
+    // Функції для вкладок
+    function switchTab(formType, tabName) {
+        // Приховуємо всі вкладки
+        const tabs = document.querySelectorAll(`#${formType}-tab-main, #${formType}-tab-details, #${formType}-tab-relations`);
+        tabs.forEach(tab => tab.classList.remove('active'));
+
+        // Показуємо вибрану вкладку
+        document.getElementById(`${formType}-tab-${tabName}`).classList.add('active');
+
+        // Оновлюємо активну вкладку в навігації
+        const tabButtons = document.querySelectorAll(`#${formType}Form .form-tab`);
+        tabButtons.forEach(button => button.classList.remove('active'));
+        event.target.classList.add('active');
+    }
+
+    function resetTabs(formType) {
+        // Скидаємо на першу вкладку
+        const tabs = document.querySelectorAll(`#${formType}Form .form-tab`);
+        const tabContents = document.querySelectorAll(`#${formType}-tab-main, #${formType}-tab-details, #${formType}-tab-relations`);
+
+        tabs.forEach(tab => tab.classList.remove('active'));
+        tabContents.forEach(content => content.classList.remove('active'));
+
+        tabs[0].classList.add('active');
+        document.getElementById(`${formType}-tab-main`).classList.add('active');
+    }
+
+    // Функція для оновлення класу опції при зміні стану
+    function updateOptionClass(checkbox) {
+        const option = checkbox.closest('.multiselect-option');
+        if (checkbox.checked) {
+            option.classList.add('selected');
+        } else {
+            option.classList.remove('selected');
+        }
+    }
+
+    // Додаємо обробники для чекбоксів
+    document.addEventListener('DOMContentLoaded', function() {
+        // Обробники для чекбоксів
+        document.querySelectorAll('.multiselect-option input[type="checkbox"]').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                updateOptionClass(this);
+            });
+        });
+
+        // Обробники для вкладок створення
+        document.querySelectorAll('#createForm .form-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabName = this.textContent.trim().toLowerCase();
+                switchTab('create', getTabKey(tabName));
+            });
+        });
+
+        // Обробники для вкладок редагування
+        document.querySelectorAll('#editForm .form-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabName = this.textContent.trim().toLowerCase();
+                switchTab('edit', getTabKey(tabName));
+            });
+        });
+
+        // Додаємо обробник для закриття модальних вікон по кліку на фон
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('form-modal')) {
+                e.target.style.display = 'none';
+            }
+        });
+
+        // Додаємо обробник для закриття по Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                hideCreateForm();
+                hideEditForm();
+            }
+        });
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.edit-anime-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                const title = this.getAttribute('data-title');
+                const originalTitle = this.getAttribute('data-original-title');
+                const description = this.getAttribute('data-description');
+                const status = this.getAttribute('data-status');
+                const type = this.getAttribute('data-type');
+                const totalEpisodes = parseInt(this.getAttribute('data-total-episodes'));
+                const releasedEpisodes = parseInt(this.getAttribute('data-released-episodes'));
+                const releaseDate = this.getAttribute('data-release-date');
+                const duration = parseInt(this.getAttribute('data-duration'));
+                const ageRating = this.getAttribute('data-age-rating');
+
+                // Обробка списків ID
+                const genreIdsStr = this.getAttribute('data-genre-ids');
+                const studioIdsStr = this.getAttribute('data-studio-ids');
+                const voiceStudioIdsStr = this.getAttribute('data-voice-studio-ids');
+
+                const genreIds = genreIdsStr ? genreIdsStr.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id)) : [];
+                const studioIds = studioIdsStr ? studioIdsStr.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id)) : [];
+                const voiceStudioIds = voiceStudioIdsStr ? voiceStudioIdsStr.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id)) : [];
+
+                editAnime(id, title, originalTitle, description, status, type, totalEpisodes, releasedEpisodes, releaseDate, duration, ageRating, genreIds, studioIds, voiceStudioIds);
+            });
+        });
+    });
+    // Допоміжна функція для отримання ключа вкладки
+    function getTabKey(tabName) {
+        const tabMap = {
+            'основне': 'main',
+            'деталі': 'details',
+            'зв\'язки': 'relations'
+        };
+        return tabMap[tabName] || 'main';
+    }
+</script>
+
+<style>
+    .anime-title {
+        font-weight: 600;
+        color: #e0e0e0;
+    }
+
+    .anime-original-title {
+        font-size: 0.8rem;
+        color: #a0a0a0;
+        margin-top: 2px;
+    }
+
+    .btn-sm {
+        padding: 5px 8px;
+        font-size: 0.8rem;
+    }
+
+    .status-badge {
+        padding: 3px 6px;
+        border-radius: 8px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .edit-anime-btn {
+        cursor: pointer;
+    }
+</style>

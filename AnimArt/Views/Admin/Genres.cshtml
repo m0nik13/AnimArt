@@ -1,0 +1,128 @@
+﻿@model IEnumerable<Genre>
+@{
+    ViewData["Title"] = "Керування жанрами";
+    Layout = "_AdminLayout";
+}
+
+<div class="admin-container">
+    <div class="admin-header">
+        <h1 class="admin-title">
+            <i class="fas fa-tags"></i>
+            Керування жанрами
+        </h1>
+        <p class="admin-subtitle">Додавання, редагування та видалення жанрів</p>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-error">
+            @TempData["ErrorMessage"]
+        </div>
+    }
+
+    <div class="admin-actions">
+        <button class="btn-primary" onclick="showCreateForm()">
+            <i class="fas fa-plus"></i>
+            Додати жанр
+        </button>
+    </div>
+
+    <!-- Форма створення жанру -->
+    <div id="createForm" class="form-modal" style="display: none;">
+        <div class="form-content">
+            <h3>Додати новий жанр</h3>
+            <form asp-action="CreateGenre" method="post">
+                <div class="form-group">
+                    <label>Назва жанру *</label>
+                    <input type="text" name="Name" class="form-input" required />
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary">Створити</button>
+                    <button type="button" class="btn-secondary" onclick="hideCreateForm()">Скасувати</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Назва</th>
+                    <th>Дії</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var genre in Model)
+                {
+                    <tr>
+                        <td>@genre.Id</td>
+                        <td>@genre.Name</td>
+                        <td class="actions">
+                            <button class="btn-warning" onclick="editGenre(@genre.Id, '@genre.Name')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <form asp-action="DeleteGenre" method="post" style="display: inline;">
+                                <input type="hidden" name="id" value="@genre.Id" />
+                                <button type="submit" class="btn-danger" onclick="return confirm('Ви впевнені?')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Форма редагування жанру -->
+<div id="editForm" class="form-modal" style="display: none;">
+    <div class="form-content">
+        <h3>Редагувати жанр</h3>
+        <form asp-action="UpdateGenre" method="post">
+            <input type="hidden" id="editGenreId" name="Id" />
+            <div class="form-group">
+                <label>Назва жанру</label>
+                <input type="text" id="editGenreName" name="Name" class="form-input" required />
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn-primary">Зберегти</button>
+                <button type="button" class="btn-secondary" onclick="hideEditForm()">Скасувати</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function showCreateForm() {
+        document.getElementById('createForm').style.display = 'flex';
+    }
+
+    function hideCreateForm() {
+        document.getElementById('createForm').style.display = 'none';
+    }
+
+    function editGenre(id, name) {
+        document.getElementById('editGenreId').value = id;
+        document.getElementById('editGenreName').value = name;
+        document.getElementById('editForm').style.display = 'flex';
+    }
+
+    function hideEditForm() {
+        document.getElementById('editForm').style.display = 'none';
+    }
+
+    document.addEventListener('click', function(e) {
+        if (e.target.classList.contains('form-modal')) {
+            e.target.style.display = 'none';
+        }
+    });
+</script>

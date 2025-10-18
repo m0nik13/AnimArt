@@ -26,6 +26,7 @@ public class AccountController : Controller
         return View(model);
     }
 
+    // Controllers/AccountController.cs
     [HttpPost]
     [AllowAnonymous]
     public async Task<IActionResult> Login(LoginViewModel model)
@@ -45,22 +46,31 @@ public class AccountController : Controller
         _userRepository.SaveChanges();
 
         var claims = new List<Claim>
-        {
-            new(ClaimTypes.Name, user.Username),
-            new(ClaimTypes.Role, user.Role.ToString()),
-            new("UserId", user.Id.ToString())
-        };
+    {
+        new(ClaimTypes.Name, user.Username),
+        new(ClaimTypes.Role, user.Role.ToString()),
+        new("UserId", user.Id.ToString())
+    };
 
         var identity = new ClaimsIdentity(claims, "CookieAuth");
         var principal = new ClaimsPrincipal(identity);
 
         await HttpContext.SignInAsync("CookieAuth", principal);
 
+        // Додамо логування для відладки
+        Console.WriteLine($"Користувач {user.Username} увійшов з роллю: {user.Role}");
+
         // Перенаправлення за роллю
         if (user.Role == UserRole.Admin)
+        {
+            Console.WriteLine("Перенаправляємо на адмін-панель");
             return RedirectToAction("Index", "Admin");
+        }
         else
+        {
+            Console.WriteLine("Перенаправляємо на головну");
             return RedirectToAction("Index", "Home");
+        }
     }
 
     [HttpGet]
@@ -91,7 +101,6 @@ public class AccountController : Controller
         {
             Id = _userRepository.GetAll().Any() ? _userRepository.GetAll().Max(u => u.Id) + 1 : 1,
             Username = model.Username,
-            Email = model.Email,
             Role = role
         };
 
@@ -120,7 +129,6 @@ public class AccountController : Controller
         var model = new ProfileViewModel
         {
             Username = user.Username,
-            Email = user.Email,
             Role = user.Role.ToString(),
             RegistrationDate = user.RegistrationDate,
             LastLogin = user.LastLogin,

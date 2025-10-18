@@ -1,8 +1,8 @@
-﻿namespace AnimArt.Entities
+﻿// Entities/Rating.cs
+namespace AnimArt.Entities
 {
     public class Rating : BaseEntity
     {
-        public int Id { get; set; }
         public int UserId { get; set; }
         public int AnimeId { get; set; }
         public int Score { get; set; }
