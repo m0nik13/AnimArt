@@ -1,17 +1,5 @@
 [
   {
-    "Username": "user",
-    "PasswordHash": "$2a$11$tJiO0XptLiAPpAU/YBOe..m0KTQiubLXmZkv.QZI65Z3XBKrDcJdm",
-    "AvatarUrl": "",
-    "RegistrationDate": "2025-10-18T09:53:06.8147+03:00",
-    "LastLogin": "2025-10-18T10:14:13.9809328+03:00",
-    "Role": 0,
-    "UserAnimeLists": null,
-    "Reviews": null,
-    "Ratings": null,
-    "Id": 5
-  },
-  {
     "Username": "admin",
     "PasswordHash": "$2a$11$LJDFxxlmk8YyXnjGdYklN.lICIJemrLclfFwHJOXG99AMfcRJJfk2",
     "AvatarUrl": "",
@@ -22,5 +10,17 @@
     "Reviews": null,
     "Ratings": null,
     "Id": 4
+  },
+  {
+    "Username": "user",
+    "PasswordHash": "$2a$11$tJiO0XptLiAPpAU/YBOe..m0KTQiubLXmZkv.QZI65Z3XBKrDcJdm",
+    "AvatarUrl": "",
+    "RegistrationDate": "2025-10-18T09:53:06.8147+03:00",
+    "LastLogin": "2025-11-04T19:25:16.9283951+02:00",
+    "Role": 0,
+    "UserAnimeLists": null,
+    "Reviews": null,
+    "Ratings": null,
+    "Id": 5
   }
 ]

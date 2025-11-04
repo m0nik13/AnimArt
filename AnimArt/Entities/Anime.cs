@@ -45,7 +45,7 @@ namespace AnimArt.Entities
 
     public enum AnimeType
     {
-        TV,
+        Series,
         Movie,
         OVA,
         ONA,
