@@ -1,0 +1,728 @@
+﻿@model AnimeDetailsViewModel
+@{
+    ViewData["Title"] = Model.Anime.Title;
+}
+
+<div class="anime-details-mobile">
+    <!-- Постер і основна інформація -->
+    <div class="anime-header-mobile">
+        <div class="anime-poster-mobile">
+            @if (!string.IsNullOrEmpty(Model.Anime.PosterUrl))
+            {
+                <img src="@Model.Anime.PosterUrl" alt="@Model.Anime.Title" class="poster-image-mobile">
+            }
+            else
+            {
+                <div class="poster-placeholder-mobile">
+                    <i class="fas fa-image"></i>
+                    <span>Постер відсутній</span>
+                </div>
+            }
+        </div>
+
+        <div class="anime-basic-info">
+            <h1 class="anime-title-mobile">@Model.Anime.Title</h1>
+            @if (!string.IsNullOrEmpty(Model.Anime.OriginalTitle) && Model.Anime.OriginalTitle != Model.Anime.Title)
+            {
+                <h2 class="anime-original-title-mobile">@Model.Anime.OriginalTitle</h2>
+            }
+
+            <!-- Статус перегляду -->
+            <div class="watch-status-section">
+                <button class="watch-status-btn not-watching">
+                    <i class="fas fa-eye-slash"></i>
+                    <span>Не дивлюсь</span>
+                </button>
+                <div class="watch-count">55 181</div>
+            </div>
+
+            <!-- Основна кнопка -->
+            <button class="play-btn-mobile">
+                <i class="fas fa-play"></i>
+                <span>Дивитися</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Мета-інформація -->
+    <div class="anime-meta-mobile">
+        <div class="meta-item-mobile">
+            <span class="meta-label">Країна:</span>
+            <span class="meta-value">Японія</span>
+        </div>
+        <div class="meta-item-mobile">
+            <span class="meta-label">Сезон:</span>
+            <span class="meta-value">Осінь 2025</span>
+        </div>
+        <div class="meta-item-mobile">
+            <span class="meta-label">Серій:</span>
+            <span class="meta-value">@Model.Anime.ReleasedEpisodes з @Model.Anime.TotalEpisodes</span>
+        </div>
+        <div class="meta-item-mobile">
+            <span class="meta-label">Тривалість:</span>
+            <span class="meta-value">@Model.Anime.DurationPerEpisode хв</span>
+        </div>
+        <div class="meta-item-mobile">
+            <span class="meta-label">Статус:</span>
+            <span class="meta-value status-@Model.Anime.Status.ToString().ToLower()">@Model.Anime.Status</span>
+        </div>
+        @if (Model.Studios.Any())
+        {
+            <div class="meta-item-mobile">
+                <span class="meta-label">Студія:</span>
+                <span class="meta-value">@Model.Studios.First().Name</span>
+            </div>
+        }
+    </div>
+
+    <!-- Жанри -->
+    @if (Model.Genres.Any())
+    {
+        <div class="genres-section-mobile">
+            <div class="genres-list-mobile">
+                @foreach (var genre in Model.Genres)
+                {
+                    <span class="genre-tag-mobile">@genre.Name</span>
+                }
+            </div>
+        </div>
+    }
+
+    <!-- Рейтинг -->
+    <div class="rating-section-mobile">
+        <div class="rating-display-mobile">
+            <div class="rating-score-mobile">@Model.AverageRating.ToString("0.0")</div>
+            <div class="rating-stars-mobile">
+                @for (int i = 1; i <= 5; i++)
+                {
+                    <i class="fas fa-star @(i <= Model.AverageRating / 2 ? "active" : "")"></i>
+                }
+            </div>
+            <div class="rating-count-mobile">@Model.TotalRatings голосів</div>
+        </div>
+    </div>
+
+    <!-- Статистика користувачів -->
+    <div class="user-stats-mobile">
+        <div class="stats-grid-mobile">
+            <div class="stat-item-mobile">
+                <div class="stat-value-mobile">27 460</div>
+                <div class="stat-label-mobile">Дивляться</div>
+            </div>
+            <div class="stat-item-mobile">
+                <div class="stat-value-mobile">6 159</div>
+                <div class="stat-label-mobile">Відкладено</div>
+            </div>
+            <div class="stat-item-mobile">
+                <div class="stat-value-mobile">74 001</div>
+                <div class="stat-label-mobile">В планах</div>
+            </div>
+            <div class="stat-item-mobile">
+                <div class="stat-value-mobile">799</div>
+                <div class="stat-label-mobile">Кинули</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Опис -->
+    <div class="description-section-mobile">
+        <h3 class="section-title-mobile">Опис</h3>
+        <div class="description-content-mobile">
+            @if (!string.IsNullOrEmpty(Model.Anime.Description))
+            {
+                <p>@Model.Anime.Description</p>
+            }
+            else
+            {
+                <p class="no-description">Опис відсутній</p>
+            }
+        </div>
+    </div>
+
+    <!-- Кадри (заглушка) -->
+    <div class="screenshots-section-mobile">
+        <h3 class="section-title-mobile">Кадри</h3>
+        <div class="screenshots-placeholder">
+            <i class="fas fa-images"></i>
+            <span>Кадри будуть додані пізніше</span>
+        </div>
+    </div>
+
+    <!-- Коментарі -->
+    <div class="comments-section-mobile">
+        <div class="comments-header-mobile">
+            <h3 class="section-title-mobile">Коментарі</h3>
+            <button class="add-comment-btn" onclick="showReviewForm()">
+                <i class="fas fa-plus"></i>
+                Додати коментар
+            </button>
+        </div>
+
+        <!-- Форма додавання коментаря -->
+        <div id="reviewForm" class="review-form-mobile" style="display: none;">
+            <h4>Додати коментар</h4>
+            <form asp-action="AddReview" method="post">
+                <input type="hidden" name="animeId" value="@Model.Anime.Id" />
+                <div class="form-group-mobile">
+                    <input type="text" name="title" class="form-input-mobile" placeholder="Заголовок" required maxlength="100" />
+                </div>
+                <div class="form-group-mobile">
+                    <textarea name="content" class="form-textarea-mobile" rows="4" placeholder="Ваш коментар..." required maxlength="1000"></textarea>
+                </div>
+                <div class="form-group-mobile">
+                    <label class="checkbox-label-mobile">
+                        <input type="checkbox" name="containsSpoilers" />
+                        <span class="checkmark-mobile"></span>
+                        Містить спойлери
+                    </label>
+                </div>
+                <div class="form-actions-mobile">
+                    <button type="submit" class="btn-primary-mobile">Опублікувати</button>
+                    <button type="button" class="btn-secondary-mobile" onclick="hideReviewForm()">Скасувати</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Список коментарів -->
+        <div class="comments-list-mobile">
+            @if (Model.Reviews.Any())
+            {
+                foreach (var review in Model.Reviews.Take(5))
+                {
+                    <div class="comment-item-mobile @(review.ContainsSpoilers ? "has-spoilers" : "")">
+                        <div class="comment-header-mobile">
+                            <div class="comment-author-mobile">Користувач #@review.UserId</div>
+                            <div class="comment-date-mobile">@review.CreatedAt.ToString("dd.MM.yyyy")</div>
+                        </div>
+                        <h4 class="comment-title-mobile">@review.Title</h4>
+                        <p class="comment-content-mobile">@review.Content</p>
+                        @if (review.ContainsSpoilers)
+                        {
+                            <div class="spoiler-warning-mobile">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                Містить спойлери
+                            </div>
+                        }
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="no-comments-mobile">
+                    <i class="fas fa-comments"></i>
+                    <p>Поки що немає коментарів. Будьте першим!</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<style>
+        .anime-details-mobile {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0;
+            background: var(--bg-primary);
+        }
+
+        /* Хедер з постером */
+        .anime-header-mobile {
+            display: flex;
+            gap: 15px;
+            padding: 20px 15px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .anime-poster-mobile {
+            width: 120px;
+            height: 180px;
+            border-radius: 8px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .poster-image-mobile {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .poster-placeholder-mobile {
+            width: 100%;
+            height: 100%;
+            background: var(--bg-secondary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        .anime-basic-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .anime-title-mobile {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        .anime-original-title-mobile {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 400;
+            margin: 0;
+            font-style: italic;
+        }
+
+        /* Статус перегляду */
+        .watch-status-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .watch-status-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+            .watch-status-btn.not-watching {
+                border-color: #666;
+            }
+
+        .watch-count {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Кнопка відтворення */
+        .play-btn-mobile {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        /* Мета-інформація */
+        .anime-meta-mobile {
+            padding: 15px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .meta-item-mobile {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+            .meta-item-mobile:last-child {
+                border-bottom: none;
+            }
+
+        .meta-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .meta-value {
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        /* Жанри */
+        .genres-section-mobile {
+            padding: 15px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .genres-list-mobile {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .genre-tag-mobile {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 6px 12px;
+            border-radius: 16px;
+            font-size: 0.8rem;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Рейтинг */
+        .rating-section-mobile {
+            padding: 20px 15px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        .rating-display-mobile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rating-score-mobile {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-warning);
+        }
+
+        .rating-stars-mobile {
+            display: flex;
+            gap: 2px;
+        }
+
+            .rating-stars-mobile .fa-star {
+                color: var(--text-secondary);
+                font-size: 1.1rem;
+            }
+
+                .rating-stars-mobile .fa-star.active {
+                    color: var(--accent-warning);
+                }
+
+        .rating-count-mobile {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Статистика користувачів */
+        .user-stats-mobile {
+            padding: 20px 15px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .stats-grid-mobile {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .stat-item-mobile {
+            text-align: center;
+            padding: 15px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .stat-value-mobile {
+            color: var(--accent-primary);
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label-mobile {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        /* Секції */
+        .section-title-mobile {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+        }
+
+        .description-section-mobile,
+        .screenshots-section-mobile,
+        .comments-section-mobile {
+            padding: 20px 15px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .description-content-mobile p {
+            color: var(--text-primary);
+            line-height: 1.5;
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        /* Кадри */
+        .screenshots-placeholder {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+            .screenshots-placeholder i {
+                font-size: 2rem;
+                margin-bottom: 10px;
+                color: var(--accent-primary);
+            }
+
+        /* Коментарі */
+        .comments-header-mobile {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .add-comment-btn {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 12px;
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        /* Форма коментаря */
+        .review-form-mobile {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+            .review-form-mobile h4 {
+                color: var(--text-primary);
+                margin-bottom: 15px;
+            }
+
+        .form-group-mobile {
+            margin-bottom: 15px;
+        }
+
+        .form-input-mobile,
+        .form-textarea-mobile {
+            width: 100%;
+            padding: 10px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+            .form-input-mobile:focus,
+            .form-textarea-mobile:focus {
+                outline: none;
+                border-color: var(--accent-primary);
+            }
+
+        .checkbox-label-mobile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .form-actions-mobile {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-primary-mobile,
+        .btn-secondary-mobile {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn-primary-mobile {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        .btn-secondary-mobile {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Список коментарів */
+        .comments-list-mobile {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .comment-item-mobile {
+            background: var(--bg-secondary);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+            .comment-item-mobile.has-spoilers {
+                border-left: 4px solid var(--accent-warning);
+            }
+
+        .comment-header-mobile {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .comment-author-mobile {
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .comment-date-mobile {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        .comment-title-mobile {
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin: 0 0 8px 0;
+        }
+
+        .comment-content-mobile {
+            color: var(--text-primary);
+            line-height: 1.4;
+            font-size: 0.9rem;
+            margin: 0 0 10px 0;
+        }
+
+        .spoiler-warning-mobile {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--accent-warning);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .no-comments-mobile {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+
+            .no-comments-mobile i {
+                font-size: 2rem;
+                margin-bottom: 10px;
+                color: var(--accent-primary);
+            }
+
+        /* Статуси */
+        .status-ongoing {
+            color: var(--accent-primary);
+        }
+
+        .status-completed {
+            color: var(--accent-secondary);
+        }
+
+        .status-announced {
+            color: var(--accent-warning);
+        }
+
+        .status-hiatus {
+            color: var(--accent-error);
+        }
+
+        /* Адаптація для планшетів */
+        @@media (min-width: 768px) {
+            .anime-details-mobile {
+                max-width: 768px;
+                margin: 0 auto;
+            }
+
+            .anime-header-mobile {
+                padding: 30px;
+            }
+
+            .anime-poster-mobile {
+                width: 150px;
+                height: 225px;
+            }
+
+            .anime-title-mobile {
+                font-size: 1.6rem;
+            }
+
+            .stats-grid-mobile {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+</style>
+@section Scripts {
+    <script>
+        function showReviewForm() {
+            document.getElementById('reviewForm').style.display = 'block';
+        }
+
+        function hideReviewForm() {
+            document.getElementById('reviewForm').style.display = 'none';
+        }
+
+        // Обробник для статусу перегляду
+        document.addEventListener('DOMContentLoaded', function() {
+            const watchStatusBtn = document.querySelector('.watch-status-btn');
+            if (watchStatusBtn) {
+                watchStatusBtn.addEventListener('click', function() {
+                    const isNotWatching = this.classList.contains('not-watching');
+
+                    if (isNotWatching) {
+                        this.classList.remove('not-watching');
+                        this.classList.add('watching');
+                        this.innerHTML = '<i class="fas fa-eye"></i><span>Дивлюсь</span>';
+                    } else {
+                        this.classList.remove('watching');
+                        this.classList.add('not-watching');
+                        this.innerHTML = '<i class="fas fa-eye-slash"></i><span>Не дивлюсь</span>';
+                    }
+                });
+            }
+        });
+    </script>
+}

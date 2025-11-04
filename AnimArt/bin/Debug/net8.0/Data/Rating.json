@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "UserId": 5,
+    "AnimeId": 2,
+    "Score": 5,
+    "RatedAt": "2025-11-04T20:27:54.0288698+02:00",
+    "User": null,
+    "Anime": null,
+    "Id": 2
+  },
+  {
+    "UserId": 5,
+    "AnimeId": 1,
+    "Score": 10,
+    "RatedAt": "2025-11-04T20:29:42.2113951+02:00",
+    "User": null,
+    "Anime": null,
+    "Id": 1
+  }
+]

@@ -3,40 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\entities\\voicestudio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\entities\\voicestudio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\data\\anime.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\data\\anime.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\entities\\review.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\entities\\review.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\entities\\rating.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\entities\\rating.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\entities\\userlists.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\entities\\userlists.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\views\\home\\animedetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\views\\home\\animedetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\entities\\studio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\entities\\studio.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\data\\rating.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\data\\rating.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\entities\\genre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\entities\\genre.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\data\\review.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\data\\review.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\entities\\anime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\entities\\anime.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\entities\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\entities\\admin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,7 +38,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
@@ -54,119 +46,93 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserLists.cs",
-              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\UserLists.cs",
-              "RelativeDocumentMoniker": "AnimArt\\Entities\\UserLists.cs",
-              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\UserLists.cs",
-              "RelativeToolTip": "AnimArt\\Entities\\UserLists.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T04:21:28.647Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Rating.cs",
-              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\Rating.cs",
-              "RelativeDocumentMoniker": "AnimArt\\Entities\\Rating.cs",
-              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\Rating.cs",
-              "RelativeToolTip": "AnimArt\\Entities\\Rating.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAeAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T04:20:56.713Z",
+              "DocumentIndex": 0,
+              "Title": "Anime.json",
+              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Data\\Anime.json",
+              "RelativeDocumentMoniker": "AnimArt\\Data\\Anime.json",
+              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Data\\Anime.json",
+              "RelativeToolTip": "AnimArt\\Data\\Anime.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAABWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-04T18:45:42.66Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Review.cs",
-              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\Review.cs",
-              "RelativeDocumentMoniker": "AnimArt\\Entities\\Review.cs",
-              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\Review.cs",
-              "RelativeToolTip": "AnimArt\\Entities\\Review.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAApAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T04:20:43.329Z",
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "AnimArt\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "AnimArt\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-04T18:43:07.29Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "VoiceStudio.cs",
-              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\VoiceStudio.cs",
-              "RelativeDocumentMoniker": "AnimArt\\Entities\\VoiceStudio.cs",
-              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\VoiceStudio.cs",
-              "RelativeToolTip": "AnimArt\\Entities\\VoiceStudio.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T04:20:30.568Z",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "AnimArt\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "AnimArt\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-04T18:43:02.784Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Studio.cs",
-              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\Studio.cs",
-              "RelativeDocumentMoniker": "AnimArt\\Entities\\Studio.cs",
-              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\Studio.cs",
-              "RelativeToolTip": "AnimArt\\Entities\\Studio.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T04:19:52.162Z",
+              "Title": "Rating.json",
+              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Data\\Rating.json",
+              "RelativeDocumentMoniker": "AnimArt\\Data\\Rating.json",
+              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Data\\Rating.json",
+              "RelativeToolTip": "AnimArt\\Data\\Rating.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-04T18:28:01.876Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Genre.cs",
-              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\Genre.cs",
-              "RelativeDocumentMoniker": "AnimArt\\Entities\\Genre.cs",
-              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\Genre.cs",
-              "RelativeToolTip": "AnimArt\\Entities\\Genre.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T04:19:31.625Z",
+              "Title": "Review.json",
+              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Data\\Review.json",
+              "RelativeDocumentMoniker": "AnimArt\\Data\\Review.json",
+              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Data\\Review.json",
+              "RelativeToolTip": "AnimArt\\Data\\Review.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-04T18:27:22.821Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AnimeDetails.cshtml",
+              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Views\\Home\\AnimeDetails.cshtml",
+              "RelativeDocumentMoniker": "AnimArt\\Views\\Home\\AnimeDetails.cshtml",
+              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Views\\Home\\AnimeDetails.cshtml",
+              "RelativeToolTip": "AnimArt\\Views\\Home\\AnimeDetails.cshtml",
+              "ViewState": "AgIAAJ8CAAAAAAAAAAAlwLgCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-04T18:19:03.723Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Anime.cs",
-              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\Anime.cs",
-              "RelativeDocumentMoniker": "AnimArt\\Entities\\Anime.cs",
-              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\Anime.cs",
-              "RelativeToolTip": "AnimArt\\Entities\\Anime.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAbAAAAAAAAAA==",
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "AnimArt\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "AnimArt\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T04:19:11.881Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Admin.cs",
-              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\Admin.cs",
-              "RelativeDocumentMoniker": "AnimArt\\Entities\\Admin.cs",
-              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\Admin.cs",
-              "RelativeToolTip": "AnimArt\\Entities\\Admin.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T04:18:44.164Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\User.cs",
-              "RelativeDocumentMoniker": "AnimArt\\Entities\\User.cs",
-              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Entities\\User.cs",
-              "RelativeToolTip": "AnimArt\\Entities\\User.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-14T04:18:20.131Z",
+              "WhenOpened": "2025-11-04T18:16:00.884Z",
               "EditorCaption": ""
             }
           ]

@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿// Controllers/AdminController.cs
+using System.Security.Claims;
 using AnimArt.Entities;
 using AnimArt.Entities.ViewModels;
 using AnimArt.Interfaces;

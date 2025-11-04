@@ -3,8 +3,28 @@
   "WorkspaceRootPath": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\views\\home\\animedetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\views\\home\\animedetails.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\data\\rating.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\data\\rating.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\data\\review.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\data\\review.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|c:\\users\\anatoloii\\source\\repos\\animart\\animart\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C6E819EF-896C-403D-9CD7-200463559DF8}|AnimArt\\AnimArt.csproj|solutionrelative:animart\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -23,14 +43,79 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "site.js",
-              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\wwwroot\\js\\site.js",
-              "RelativeDocumentMoniker": "AnimArt\\wwwroot\\js\\site.js",
-              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\wwwroot\\js\\site.js",
-              "RelativeToolTip": "AnimArt\\wwwroot\\js\\site.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-10-06T05:59:04.781Z",
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "AnimArt\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Views\\Shared\\_Layout.cshtml*",
+              "RelativeToolTip": "AnimArt\\Views\\Shared\\_Layout.cshtml*",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-04T18:43:07.29Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "AnimArt\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "AnimArt\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-04T18:43:02.784Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Rating.json",
+              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Data\\Rating.json",
+              "RelativeDocumentMoniker": "AnimArt\\Data\\Rating.json",
+              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Data\\Rating.json",
+              "RelativeToolTip": "AnimArt\\Data\\Rating.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-04T18:28:01.876Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Review.json",
+              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Data\\Review.json",
+              "RelativeDocumentMoniker": "AnimArt\\Data\\Review.json",
+              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Data\\Review.json",
+              "RelativeToolTip": "AnimArt\\Data\\Review.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-04T18:27:22.821Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AnimeDetails.cshtml",
+              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Views\\Home\\AnimeDetails.cshtml",
+              "RelativeDocumentMoniker": "AnimArt\\Views\\Home\\AnimeDetails.cshtml",
+              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Views\\Home\\AnimeDetails.cshtml",
+              "RelativeToolTip": "AnimArt\\Views\\Home\\AnimeDetails.cshtml",
+              "ViewState": "AgIAAJ8CAAAAAAAAAAAlwLgCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-04T18:19:03.723Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "AnimArt\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Anatoloii\\source\\repos\\AnimArt\\AnimArt\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "AnimArt\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAAAJAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-04T18:16:00.884Z",
               "EditorCaption": ""
             }
           ]

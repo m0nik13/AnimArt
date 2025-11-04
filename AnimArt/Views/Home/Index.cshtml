@@ -8,86 +8,65 @@
     {
         @foreach (var anime in Model)
         {
-            <div class="anime-card" data-id="@anime.Id">
-                <div class="anime-poster">
-                    @if (!string.IsNullOrEmpty(anime.PosterUrl))
-                    {
-                        <img src="@anime.PosterUrl" alt="@anime.Title" onerror="this.src='/assets/placeholder.jpg'">
-                    }
-                    else
-                    {
-                        <div class="poster-placeholder">
-                            <i class="fas fa-image"></i>
-                            <span>Немає постера</span>
-                        </div>
-                    }
-                </div>
-                <div class="anime-info">
-                    <div class="anime-header">
+            <a asp-controller="Home" asp-action="AnimeDetails" asp-route-id="@anime.Id" class="anime-card-link">
+                <div class="anime-card" data-id="@anime.Id">
+                    <div class="anime-poster">
+                        @if (!string.IsNullOrEmpty(anime.PosterUrl))
+                        {
+                            <img src="@anime.PosterUrl" alt="@anime.Title" onerror="this.src='/assets/placeholder.jpg'">
+                        }
+                        else
+                        {
+                            <div class="poster-placeholder">
+                                <i class="fas fa-image"></i>
+                                <span>Немає постера</span>
+                            </div>
+                        }
+                    </div>
+                    <div class="anime-info">
                         <h3 class="anime-title">@anime.Title</h3>
                         @if (!string.IsNullOrEmpty(anime.OriginalTitle) && anime.OriginalTitle != anime.Title)
                         {
                             <div class="anime-original-title">@anime.OriginalTitle</div>
                         }
-                    </div>
 
-                    <div class="anime-stats">
-                        <div class="stat-item">
-                            <i class="fas fa-play-circle"></i>
-                            <span class="stat-value">
+                        <div class="anime-meta">
+                            <span class="episodes @anime.Status.ToString().ToLower()">
                                 @if (anime.Status == AnimeStatus.Ongoing)
                                 {
-                                    <text>@anime.ReleasedEpisodes/@anime.TotalEpisodes</text>
+                                    <text>@anime.ReleasedEpisodes з @anime.TotalEpisodes сер</text>
                                 }
                                 else if (anime.Status == AnimeStatus.Completed)
                                 {
-                                    <text>@anime.TotalEpisodes еп.</text>
+                                    <text>@anime.TotalEpisodes серій</text>
+                                }
+                                else if (anime.Status == AnimeStatus.Announced)
+                                {
+                                    <text>Анонсовано</text>
                                 }
                                 else
                                 {
-                                    <text>@anime.TotalEpisodes еп.</text>
+                                    <text>Перерва</text>
                                 }
                             </span>
+                            <span class="rating">
+                                <i class="fas fa-star"></i>
+                                @anime.Type
+                            </span>
+                            <span class="year">@anime.ReleaseDate.Year</span>
                         </div>
 
-                        <div class="stat-item">
-                            <i class="fas fa-clock"></i>
-                            <span class="stat-value">@anime.DurationPerEpisode хв</span>
-                        </div>
-
-                        <div class="stat-item">
-                            <i class="fas fa-calendar"></i>
-                            <span class="stat-value">@anime.ReleaseDate.Year</span>
-                        </div>
+                        @if (!string.IsNullOrEmpty(anime.Description))
+                        {
+                            <p class="anime-description">@anime.Description</p>
+                        }
+                        else
+                        {
+                            <p class="anime-description no-description">Опис відсутній</p>
+                        }
                     </div>
-
-                    <div class="anime-meta">
-                        <div class="anime-type">@GetAnimeTypeDisplay(anime.Type)</div>
-                        <div class="anime-status @anime.Status.ToString().ToLower()">
-                            @GetStatusDisplay(anime.Status)
-                        </div>
-                    </div>
-
-                    <div class="anime-rating">
-                        <div class="rating-stars">
-                            @for (int i = 1; i <= 5; i++)
-                            {
-                                <i class="fas fa-star @(i <= CalculateStarRating(anime) ? "active" : "")"></i>
-                            }
-                        </div>
-                        <span class="rating-value">@CalculateAnimeRating(anime)</span>
-                    </div>
-
-                    @if (!string.IsNullOrEmpty(anime.Description))
-                    {
-                        <p class="anime-description">@anime.Description</p>
-                    }
-                    else
-                    {
-                        <p class="anime-description no-description">Опис відсутній</p>
-                    }
                 </div>
-            </div>
+            </a>
         }
     }
     else
@@ -100,43 +79,16 @@
     }
 </div>
 
-@functions {
-    private string GetStatusDisplay(AnimeStatus status)
-    {
-        return status switch
-        {
-            AnimeStatus.Ongoing => "Онгоїнг",
-            AnimeStatus.Completed => "Завершено",
-            AnimeStatus.Announced => "Анонсовано",
-            AnimeStatus.Hiatus => "Перерва",
-            _ => status.ToString()
-        };
+<style>
+    .anime-card-link {
+        text-decoration: none;
+        display: block;
+        color: inherit;
     }
 
-    private string GetAnimeTypeDisplay(AnimeType type)
-    {
-        return type switch
-        {
-            AnimeType.Series => "Серіал",
-            AnimeType.Movie => "Фільм",
-            AnimeType.OVA => "OVA",
-            AnimeType.ONA => "ONA",
-            AnimeType.Special => "Спешл",
-            _ => type.ToString()
-        };
-    }
-
-    private int CalculateStarRating(Anime anime)
-    {
-        // Тимчасовий алгоритм для демонстрації - можна замінити на реальний рейтинг
-        var baseRating = (anime.Id % 5) + 3; // Повертає від 3 до 7
-        return baseRating > 5 ? 5 : baseRating;
-    }
-
-    private string CalculateAnimeRating(Anime anime)
-    {
-        // Тимчасовий алгоритм для демонстрації
-        var rating = (anime.Id % 5) + 6.0; // Повертає від 6.0 до 10.0
-        return rating.ToString("0.0");
-    }
-}
+        .anime-card-link:hover .anime-card {
+            background-color: #2a2a2a;
+            transform: translateX(5px);
+            border-left-color: var(--accent-primary);
+        }
+</style>

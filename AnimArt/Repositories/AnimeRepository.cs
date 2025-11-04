@@ -1,4 +1,5 @@
-﻿using AnimArt.Entities;
+﻿// Repositories/AnimeRepository.cs
+using AnimArt.Entities;
 using AnimArt.Interfaces;
 
 namespace AnimArt.Repositories
