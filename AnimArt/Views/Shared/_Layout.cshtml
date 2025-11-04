@@ -17,7 +17,7 @@
                 <img src="~/assets/logo1.png" alt="AnimArt" class="logo" loading="lazy">
             </div>
 
-            <!-- Пошукова строка - збільшена та по центру -->
+            <!-- Пошукова строка -->
             <div class="search-container">
                 <div class="search-box">
                     <input type="text" class="search-input" placeholder="Пошук аніме..." aria-label="Пошук аніме">
@@ -27,7 +27,8 @@
                 </div>
             </div>
 
-            <nav class="main-nav" aria-label="Основна навігація">
+            <!-- Основна навігація для десктопу -->
+            <nav class="main-nav desktop-nav" aria-label="Основна навігація">
                 <a asp-controller="Home" asp-action="Index" class="nav-item">Головна</a>
                 <a href="#" class="nav-item">Огляд</a>
                 <a href="#" class="nav-item">Закладки</a>
@@ -42,9 +43,59 @@
                     <a asp-controller="Account" asp-action="Register" class="nav-item">Реєстрація</a>
                 }
             </nav>
+
+            <!-- Кнопка burger menu для мобільних -->
+            <button class="burger-menu" aria-label="Відкрити меню" aria-expanded="false">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
         </header>
 
-        <!-- Основний контент - без бічної панелі -->
+        <!-- Мобільна навігація -->
+        <nav class="mobile-nav" aria-label="Мобільна навігація">
+            <div class="mobile-nav-content">
+                <a asp-controller="Home" asp-action="Index" class="mobile-nav-item">
+                    <i class="fas fa-home"></i>
+                    Головна
+                </a>
+                <a href="#" class="mobile-nav-item">
+                    <i class="fas fa-compass"></i>
+                    Огляд
+                </a>
+                <a href="#" class="mobile-nav-item">
+                    <i class="fas fa-bookmark"></i>
+                    Закладки
+                </a>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <a asp-controller="Account" asp-action="Profile" class="mobile-nav-item">
+                        <i class="fas fa-user"></i>
+                        Профіль
+                    </a>
+                    <a asp-controller="Account" asp-action="Logout" class="mobile-nav-item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Вийти
+                    </a>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="mobile-nav-item">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Увійти
+                    </a>
+                    <a asp-controller="Account" asp-action="Register" class="mobile-nav-item">
+                        <i class="fas fa-user-plus"></i>
+                        Реєстрація
+                    </a>
+                }
+            </div>
+        </nav>
+
+        <!-- Оверлей для мобільного меню -->
+        <div class="mobile-nav-overlay"></div>
+
+        <!-- Основний контент -->
         <main class="content">
             @RenderBody()
         </main>

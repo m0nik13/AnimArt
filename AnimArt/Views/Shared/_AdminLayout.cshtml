@@ -16,7 +16,15 @@
                 <span class="app-title">AnimArt Admin</span>
             </div>
 
-            <nav class="main-nav" aria-label="Адмін навігація">
+            <!-- Кнопка burger menu для мобільних -->
+            <button class="burger-menu" aria-label="Відкрити меню" aria-expanded="false">
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+                <span class="burger-line"></span>
+            </button>
+
+            <!-- Основна навігація для десктопу -->
+            <nav class="main-nav desktop-nav" aria-label="Адмін навігація">
                 <a asp-controller="Admin" asp-action="Index" class="nav-item">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Панель</span>
@@ -59,6 +67,52 @@
                 </a>
             </nav>
         </header>
+
+        <!-- Мобільна навігація для адмін-панелі -->
+        <nav class="mobile-nav" aria-label="Мобільна адмін навігація">
+            <div class="mobile-nav-content">
+                <a asp-controller="Admin" asp-action="Index" class="mobile-nav-item">
+                    <i class="fas fa-tachometer-alt"></i>
+                    Панель
+                </a>
+                <a asp-controller="Admin" asp-action="Users" class="mobile-nav-item">
+                    <i class="fas fa-users"></i>
+                    Користувачі
+                </a>
+                <a asp-controller="Admin" asp-action="Anime" class="mobile-nav-item">
+                    <i class="fas fa-film"></i>
+                    Аніме
+                </a>
+                <a asp-controller="Admin" asp-action="Genres" class="mobile-nav-item">
+                    <i class="fas fa-tags"></i>
+                    Жанри
+                </a>
+                <a asp-controller="Admin" asp-action="Studios" class="mobile-nav-item">
+                    <i class="fas fa-building"></i>
+                    Студії
+                </a>
+                <a asp-controller="Admin" asp-action="VoiceStudios" class="mobile-nav-item">
+                    <i class="fas fa-microphone"></i>
+                    Озвучення
+                </a>
+                <a asp-controller="Admin" asp-action="Reviews" class="mobile-nav-item">
+                    <i class="fas fa-comments"></i>
+                    Відгуки
+                </a>
+                <a asp-controller="Admin" asp-action="Ratings" class="mobile-nav-item">
+                    <i class="fas fa-star"></i>
+                    Рейтинги
+                </a>
+                <a asp-controller="Home" asp-action="Index" class="mobile-nav-item">
+                    <i class="fas fa-home"></i>
+                    Сайт
+                </a>
+                <a asp-controller="Account" asp-action="Logout" class="mobile-nav-item">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Вийти
+                </a>
+            </div>
+        </nav>
 
         <!-- Основний контент -->
         <main class="content admin-content">

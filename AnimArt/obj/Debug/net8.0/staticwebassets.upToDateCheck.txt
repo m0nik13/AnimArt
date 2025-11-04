@@ -1,5 +1,12 @@
+wwwroot\assets\dandadan.jpg
+wwwroot\assets\konosuba.jpg
+wwwroot\assets\logo.png
+wwwroot\assets\logo1.png
+wwwroot\assets\ocean.jpg
+wwwroot\assets\porce....jpg
+wwwroot\assets\Reinkar.jpg
+wwwroot\assets\Spy.jpg
 wwwroot\css\admin.css
-wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
@@ -59,3 +66,4 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\css\site.css

@@ -391,3 +391,18 @@
         flex-direction: column;
     }
 }
+@media (max-width: 768px) {
+    .admin-content {
+        margin-top: 0;
+        padding-top: 120px;
+    }
+
+    .admin-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: linear-gradient(135deg, #1a1a1a 0%, #252525 100%) !important;
+    }
+}
