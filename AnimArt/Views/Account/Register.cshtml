@@ -30,41 +30,6 @@
                 <span asp-validation-for="ConfirmPassword" class="validation-error"></span>
             </div>
 
-            <div class="form-group">
-                <label class="form-label">Оберіть роль</label>
-                <div class="role-selector">
-                    <label class="role-option @(Model?.Role == "User" ? "selected" : "")">
-                        <input type="radio" asp-for="Role" value="User" checked="@(Model?.Role == "User")" />
-                        <div class="role-icon">
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <div class="role-info">
-                            <div class="role-name">Користувач</div>
-                            <div class="role-description">Звичайний акаунт для перегляду аніме</div>
-                        </div>
-                    </label>
-
-                    <label class="role-option @(Model?.Role == "Admin" ? "selected" : "")">
-                        <input type="radio" asp-for="Role" value="Admin" checked="@(Model?.Role == "Admin")" />
-                        <div class="role-icon">
-                            <i class="fas fa-user-shield"></i>
-                        </div>
-                        <div class="role-info">
-                            <div class="role-name">Адміністратор</div>
-                            <div class="role-description">Повний доступ до управління сайтом</div>
-                        </div>
-                    </label>
-                </div>
-                <span asp-validation-for="Role" class="validation-error"></span>
-            </div>
-
-            @if (!ViewData.ModelState.IsValid)
-            {
-                <div class="error-message">
-                    <i class="fas fa-exclamation-circle"></i>
-                    Будь ласка, виправте помилки в формі
-                </div>
-            }
 
             <button type="submit" class="auth-button">
                 <i class="fas fa-user-plus"></i>

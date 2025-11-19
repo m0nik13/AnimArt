@@ -8,6 +8,8 @@ namespace AnimArt.Entities
         public string Title { get; set; }
         public string OriginalTitle { get; set; }
         public string Description { get; set; }
+        public int Rating { get; set; }
+        public decimal AverageRating { get; set; }
         public string PosterUrl { get; set; }
         public string TrailerUrl { get; set; }
         public int TotalEpisodes { get; set; }
