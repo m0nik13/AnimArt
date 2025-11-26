@@ -53,6 +53,63 @@ public class AdminController : Controller
         return View(stats);
     }
 
+    public IActionResult ManageEpisodes(int animeId)
+    {
+        var anime = _animeRepository.GetById(animeId);
+        if (anime == null) return NotFound();
+
+        anime.Episodes = anime.Episodes.OrderBy(e => e.Id).ToList();
+        return View(anime);
+    }
+
+    [HttpPost]
+    public IActionResult AddEpisode(int animeId, int episodeNumber, string videoUrl, string title)
+    {
+        var anime = _animeRepository.GetById(animeId);
+        if (anime != null && !string.IsNullOrEmpty(videoUrl))
+        {
+            var existingEpisode = anime.Episodes.FirstOrDefault(e => e.Id == episodeNumber);
+
+            if (existingEpisode != null)
+            {
+                existingEpisode.VideoUrl = videoUrl;
+                existingEpisode.Title = title;
+            }
+            else
+            {
+                anime.Episodes.Add(new Episode
+                {
+                    Id = episodeNumber,
+                    Title = title ?? $"Серія {episodeNumber}",
+                    VideoUrl = videoUrl
+                });
+            }
+
+            _animeRepository.Update(anime);
+            _animeRepository.SaveChanges();
+            TempData["SuccessMessage"] = "Серію збережено";
+        }
+        return RedirectToAction("ManageEpisodes", new { animeId = animeId });
+    }
+
+    [HttpPost]
+    public IActionResult DeleteEpisode(int animeId, int episodeNumber)
+    {
+        var anime = _animeRepository.GetById(animeId);
+        if (anime != null)
+        {
+            var episode = anime.Episodes.FirstOrDefault(e => e.Id == episodeNumber);
+            if (episode != null)
+            {
+                anime.Episodes.Remove(episode);
+                _animeRepository.Update(anime);
+                _animeRepository.SaveChanges();
+                TempData["SuccessMessage"] = "Серію видалено";
+            }
+        }
+        return RedirectToAction("ManageEpisodes", new { animeId = animeId });
+    }
+
     // Керування користувачами
     public IActionResult Users()
     {

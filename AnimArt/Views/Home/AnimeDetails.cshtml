@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = Model.Anime.Title;
 }
-
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
 <div class="anime-details-mobile">
     <!-- Постер і основна інформація -->
     <div class="anime-header-mobile">
@@ -35,15 +35,58 @@
                 </button>
                 <div class="watch-count">55 181</div>
             </div>
-
-            <!-- Основна кнопка -->
-            <button class="play-btn-mobile">
-                <i class="fas fa-play"></i>
-                <span>Дивитися</span>
-            </button>
+            <div class="description-section-mobile">
+                <h3 class="section-title-mobile">Опис</h3>
+                <div class="description-content-mobile">
+                    @if (!string.IsNullOrEmpty(Model.Anime.Description))
+                    {
+                        <p>@Model.Anime.Description</p>
+                    }
+                    else
+                    {
+                        <p class="no-description">Опис відсутній</p>
+                    }
+                </div>
+            </div>
         </div>
     </div>
+    @if (Model.Anime.Episodes != null && Model.Anime.Episodes.Any())
+    {
+        <div class="theater-layout">
+            <div class="video-main-container">
+                <video id="player" playsinline controls data-poster="@Model.Anime.PosterUrl">
+                    <source src="@Model.Anime.Episodes.OrderBy(e => e.Id).First().VideoUrl" type="video/mp4" />
+                </video>
+            </div>
 
+            <div class="episodes-panel">
+                <div class="episodes-header">
+                    <span class="episodes-count">Всі серії (@Model.Anime.Episodes.Count)</span>
+                </div>
+
+                <div class="episodes-grid">
+                    @foreach (var ep in Model.Anime.Episodes.OrderBy(e => e.Id))
+                    {
+                        <div class="episode-btn @(ep.Id == 1 ? "active" : "")"
+                             onclick="changeEpisode(this, '@ep.VideoUrl', @ep.Id)"
+                             title="@ep.Title">
+                            <div class="ep-num">Серія @ep.Id</div>
+                            <div class="ep-name">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="no-episodes-msg">
+            <i class="fas fa-video-slash"></i>
+            <p>Серії ще не додані</p>
+        </div>
+    }
     <!-- Мета-інформація -->
     <div class="anime-meta-mobile">
         <div class="meta-item-mobile">
@@ -121,21 +164,6 @@
                 <div class="stat-value-mobile">799</div>
                 <div class="stat-label-mobile">Кинули</div>
             </div>
-        </div>
-    </div>
-
-    <!-- Опис -->
-    <div class="description-section-mobile">
-        <h3 class="section-title-mobile">Опис</h3>
-        <div class="description-content-mobile">
-            @if (!string.IsNullOrEmpty(Model.Anime.Description))
-            {
-                <p>@Model.Anime.Description</p>
-            }
-            else
-            {
-                <p class="no-description">Опис відсутній</p>
-            }
         </div>
     </div>
 
@@ -670,6 +698,116 @@
             color: var(--accent-error);
         }
 
+
+    .video-main-container {
+        width: 100%;
+        background: #000;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        border: 1px solid #333;
+    }
+
+    .plyr {
+        width: 100%;
+        height: 100%;
+    }
+
+    .episodes-panel {
+        background: var(--bg-tertiary);
+        border: 1px solid #333;
+        border-radius: 8px;
+        padding: 15px;
+    }
+
+    .episodes-header {
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #444;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+    }
+
+    .episodes-grid {
+        display: grid;
+        
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 8px;
+        max-height: 300px;
+        overflow-y: auto;
+        padding-right: 5px;
+    }
+
+        .episodes-grid::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .episodes-grid::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 3px;
+        }
+
+    /* Кнопка серії */
+    .episode-btn {
+        background: var(--bg-secondary);
+        border: 1px solid #444;
+        border-radius: 6px;
+        padding: 15px 10px;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        min-height: 70px;
+        position: relative;
+    }
+
+        .episode-btn:hover {
+            background: #333;
+            border-color: var(--text-secondary);
+        }
+
+        .episode-btn.active {
+            background: rgba(187, 134, 252, 0.15) !important;
+            border-color: var(--accent-primary) !important;
+            box-shadow: 0 0 10px rgba(187, 134, 252, 0.2);
+        }
+
+    .ep-num {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 5px;
+    }
+
+    .ep-name i {
+        font-size: 1.2rem;
+        color: var(--accent-primary);
+    }
+
+    /* Адаптивність */
+    @@media (max-width: 600px) {
+        .episodes-grid
+
+    {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+
+    .episode-btn {
+        padding: 8px;
+        min-height: 40px;
+    }
+
+    .ep-num {
+        font-size: 0.8rem;
+    }
+
+    }
+
         /* Адаптація для планшетів */
         @@media (min-width: 768px) {
             .anime-details-mobile {
@@ -696,6 +834,7 @@
         }
 </style>
 @section Scripts {
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
     <script>
         function showReviewForm() {
             document.getElementById('reviewForm').style.display = 'block';
@@ -705,7 +844,6 @@
             document.getElementById('reviewForm').style.display = 'none';
         }
 
-        // Обробник для статусу перегляду
         document.addEventListener('DOMContentLoaded', function() {
             const watchStatusBtn = document.querySelector('.watch-status-btn');
             if (watchStatusBtn) {
@@ -724,5 +862,31 @@
                 });
             }
         });
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            const player = new Plyr('#player', {
+                controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'captions', 'settings', 'pip', 'airplay', 'fullscreen'],
+                iconUrl: 'https://cdn.plyr.io/3.7.8/plyr.svg',
+            });
+
+            window.player = player;
+        });
+
+        function changeEpisode(element, url, episodeNum) {
+            if (!window.player) return;
+
+                window.player.source = {
+            type: 'video',
+            sources: [{ src: url, type: 'video/mp4' }],
+            poster: '@Model.Anime.PosterUrl'
+            };
+            const allButtons = document.querySelectorAll('.episode-btn');
+                allButtons.forEach(btn => {
+                btn.classList.remove('active');
+            });
+            element.classList.add('active');
+
+            window.player.play();
+        }
     </script>
 }

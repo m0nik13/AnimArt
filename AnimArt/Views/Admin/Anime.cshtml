@@ -222,6 +222,9 @@
                                     data-voice-studio-ids="@string.Join(",", animeItem.VoiceStudioIds ?? new List<int>())">
                                 <i class="fas fa-edit"></i>
                             </button>
+                            <a asp-action="ManageEpisodes" asp-route-animeId="@animeItem.Id" class="btn-primary btn-sm" title="Серії">
+                                <i class="fas fa-film"></i>
+                            </a>
                             <form asp-action="DeleteAnime" method="post" style="display: inline;">
                                 <input type="hidden" name="id" value="@animeItem.Id" />
                                 <button type="submit" class="btn-danger btn-sm" onclick="return confirm('Видалити це аніме?')">
