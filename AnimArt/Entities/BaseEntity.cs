@@ -1,11 +1,12 @@
 ﻿// Entities/BaseEntity.cs
+using System.ComponentModel.DataAnnotations;
 using AnimArt.Interfaces;
+
 namespace AnimArt.Entities
 {
     public abstract class BaseEntity : IEntity
     {
+        [Key]
         public int Id { get; set; }
-        private static int _latestId = 0;
-        public BaseEntity() { Id = _latestId++; }
     }
 }
