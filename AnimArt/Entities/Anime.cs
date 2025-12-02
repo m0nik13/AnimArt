@@ -3,11 +3,19 @@ using System.Text.Json.Serialization;
 
 namespace AnimArt.Entities
 {
+    public class Episode
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string VideoUrl { get; set; }
+    }
     public class Anime : BaseEntity
     {
         public string Title { get; set; }
         public string OriginalTitle { get; set; }
         public string Description { get; set; }
+        public int Rating { get; set; }
+        public decimal AverageRating { get; set; }
         public string PosterUrl { get; set; }
         public string TrailerUrl { get; set; }
         public int TotalEpisodes { get; set; }
@@ -23,7 +31,7 @@ namespace AnimArt.Entities
         public List<int> GenreIds { get; set; } = new List<int>();
         public List<int> StudioIds { get; set; } = new List<int>();
         public List<int> VoiceStudioIds { get; set; } = new List<int>();
-
+        public List<Episode> Episodes { get; set; } = new List<Episode>();
         public Anime()
         {
             Title = string.Empty;

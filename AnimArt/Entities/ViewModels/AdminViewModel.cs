@@ -1,4 +1,5 @@
-﻿namespace AnimArt.Entities.ViewModels
+﻿// Entities/ViewModels/AdminViewModel.cs
+namespace AnimArt.Entities.ViewModels
 {
     public class AdminStatsViewModel
     {

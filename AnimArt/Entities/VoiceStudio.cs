@@ -1,4 +1,5 @@
-﻿namespace AnimArt.Entities
+﻿// Entities/VoiceStudio.cs
+namespace AnimArt.Entities
 {
     public class VoiceStudio : BaseEntity
     {
