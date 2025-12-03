@@ -1,53 +1,60 @@
 ﻿// Repositories/Repository.cs
 using AnimArt.Data;
 using AnimArt.Interfaces;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace AnimArt.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class, IEntity
+    public class Repository<T> : IRepository<T> where T : class
     {
-        protected List<T> _entities;
-        private readonly IDataStorage<T> _storage;
+        protected readonly ApplicationDbContext _context;
+        internal DbSet<T> dbSet;
 
-        public Repository(IDataStorage<T> storage)
+        public Repository(ApplicationDbContext context)
         {
-            _storage = storage;
-            _entities = _storage.Load();
+            _context = context;
+            this.dbSet = _context.Set<T>();
         }
 
-        public void Add(T entity)
+        public virtual T GetById(int id)
         {
-            if (!_entities.Any(e => e.Id == entity.Id))
+            return dbSet.Find(id);
+        }
+
+        public virtual IEnumerable<T> GetAll()
+        {
+            return dbSet.ToList();
+        }
+
+        public virtual IEnumerable<T> Find(Expression<Func<T, bool>> predicate)
+        {
+            return dbSet.Where(predicate).ToList();
+        }
+
+        public virtual void Add(T entity)
+        {
+            dbSet.Add(entity);
+        }
+
+        public virtual void Update(T entity)
+        {
+            dbSet.Attach(entity);
+            _context.Entry(entity).State = EntityState.Modified;
+        }
+
+        public virtual void Remove(T entity)
+        {
+            if (_context.Entry(entity).State == EntityState.Detached)
             {
-                _entities.Add(entity);
-                _storage.Save(_entities);
+                dbSet.Attach(entity);
             }
+            dbSet.Remove(entity);
         }
 
-        public void Remove(T entity)
-        {
-            _entities.Remove(entity);
-            _storage.Save(_entities);
-        }
-
-        public void Update(T entity)
-        {
-            var existing = _entities.FirstOrDefault(e => e.Id == entity.Id);
-            if (existing != null)
-            {
-                _entities.Remove(existing);
-                _entities.Add(entity);
-                _storage.Save(_entities);
-            }
-        }
-
-        public T GetById(int id) => _entities.FirstOrDefault(e => e.Id == id);
-        public IEnumerable<T> GetAll() => _entities;
-        public IEnumerable<T> GetSorted() => _entities.OrderBy(e => e.Id);
         public void SaveChanges()
         {
-            _storage.Save(_entities);
+            _context.SaveChanges();
         }
     }
 }

@@ -1,80 +1,84 @@
 ﻿// Repositories/AnimeRepository.cs
+using AnimArt.Data;
 using AnimArt.Entities;
 using AnimArt.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace AnimArt.Repositories
 {
     public class AnimeRepository : Repository<Anime>, IAnimeRepository
     {
-        public AnimeRepository(IDataStorage<Anime> storage) : base(storage)
+        public AnimeRepository(ApplicationDbContext context) : base(context)
         {
         }
 
-        public IEnumerable<Anime> GetByTitle(string title)
+        // Перевизначаємо GetById, щоб завантажити всі зв'язки (жанри, відгуки, серії)
+        public override Anime GetById(int id)
         {
-            return _entities.Where(a =>
-                a.Title.Contains(title, System.StringComparison.OrdinalIgnoreCase) ||
-                a.OriginalTitle.Contains(title, System.StringComparison.OrdinalIgnoreCase)
-            );
-        }
-
-        public IEnumerable<Anime> GetByStatus(AnimeStatus status)
-        {
-            return _entities.Where(a => a.Status == status);
-        }
-
-        public IEnumerable<Anime> GetByType(AnimeType type)
-        {
-            return _entities.Where(a => a.Type == type);
-        }
-
-        public IEnumerable<Anime> GetByGenre(string genre)
-        {
-            // Тимчасова реалізація - поки не маємо доступу до Genre через навігаційну властивість
-            // Пізніше можна буде оновити, коли буде реалізовано зв'язок з Genre
-            return _entities.Where(a =>
-                a.Description.Contains(genre, System.StringComparison.OrdinalIgnoreCase) ||
-                a.Title.Contains(genre, System.StringComparison.OrdinalIgnoreCase)
-            );
-        }
-
-        public IEnumerable<Anime> GetRecent(int count)
-        {
-            return _entities
-                .OrderByDescending(a => a.ReleaseDate)
-                .Take(count);
-        }
-
-        public IEnumerable<Anime> GetSortedByRating()
-        {
-            // Тимчасова реалізація - поки не маємо рейтингів
-            // Пізніше можна буде оновити, коли буде реалізовано зв'язок з Rating
-            return _entities
-                .OrderByDescending(a => CalculateAverageRating(a)) // Тимчасова логіка
-                .ThenBy(a => a.Title);
+            return _context.Animes
+                .Include(a => a.AnimeGenres).ThenInclude(ag => ag.Genre)
+                .Include(a => a.AnimeStudios).ThenInclude(ast => ast.Studio)
+                .Include(a => a.AnimeVoiceStudios).ThenInclude(av => av.VoiceStudio)
+                .Include(a => a.Episodes)
+                .Include(a => a.Reviews).ThenInclude(r => r.User) // Важливо для рейтингу
+                .FirstOrDefault(a => a.Id == id);
         }
 
         public IEnumerable<Anime> GetSortedByReleaseDate()
         {
-            return _entities
+            // Для списків нам не обов'язково тягнути епізоди, але потрібен постер і рейтинг
+            return _context.Animes
+                .Include(a => a.Reviews) // Потрібно для AverageRating
                 .OrderByDescending(a => a.ReleaseDate)
-                .ThenBy(a => a.Title);
+                .ThenBy(a => a.Title)
+                .ToList();
         }
 
-        // Допоміжний метод для тимчасової реалізації рейтингу
-        private double CalculateAverageRating(Anime anime)
+        public IEnumerable<Anime> GetSortedByRating()
         {
-            // Тимчасова логіка - можна змінити пізніше
-            // Наразі використовуємо ID як псевдо-рейтинг для демонстрації
-            return anime.Id % 5 + 3; // Повертає значення від 3.0 до 7.0
+            // Сортування по вираховуваному полю.
+            // Примітка: AverageRating обчислюється в пам'яті (клієнтська оцінка),
+            // тому спочатку вантажимо дані, потім сортуємо.
+            // Для великих баз краще робити це через SQL View або Computed Column.
+            var animes = _context.Animes
+                .Include(a => a.Reviews)
+                .ToList();
+
+            return animes.OrderByDescending(a => a.AverageRating).ToList();
         }
-    }
-    public interface IAnimeRepository : IRepository<Anime>
-    {
-        IEnumerable<Anime> GetByTitle(string title);
-        IEnumerable<Anime> GetByStatus(AnimeStatus status);
-        IEnumerable<Anime> GetByType(AnimeType type);
-        IEnumerable<Anime> GetSortedByRating();
-        IEnumerable<Anime> GetSortedByReleaseDate();
+
+        public IEnumerable<Anime> GetByTitle(string title)
+        {
+            return _context.Animes
+                .Include(a => a.Reviews)
+                .Where(a => a.Title.Contains(title) || a.OriginalTitle.Contains(title))
+                .ToList();
+        }
+
+        public IEnumerable<Anime> GetByStatus(AnimeStatus status)
+        {
+            return _context.Animes
+                .Include(a => a.Reviews)
+                .Where(a => a.Status == status)
+                .ToList();
+        }
+
+        public IEnumerable<Anime> GetByType(AnimeType type)
+        {
+            return _context.Animes
+                .Include(a => a.Reviews)
+                .Where(a => a.Type == type)
+                .ToList();
+        }
+
+        // Метод для складного пошуку (за жанром)
+        public IEnumerable<Anime> GetByGenre(int genreId)
+        {
+            return _context.Animes
+                .Include(a => a.AnimeGenres)
+                .Include(a => a.Reviews)
+                .Where(a => a.AnimeGenres.Any(ag => ag.GenreId == genreId))
+                .ToList();
+        }
     }
 }

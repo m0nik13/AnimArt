@@ -6,9 +6,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 // Додайте сервіси автентифікації
 builder.Services.AddAuthentication("CookieAuth")
     .AddCookie("CookieAuth", options =>
@@ -18,16 +19,8 @@ builder.Services.AddAuthentication("CookieAuth")
         options.AccessDeniedPath = "/Account/AccessDenied";
         options.ExpireTimeSpan = TimeSpan.FromDays(30);
     });
-
-// Реєстрація DataStorage
-builder.Services.AddSingleton<IDataStorage<User>, JsonStorage<User>>();
-builder.Services.AddSingleton<IDataStorage<Anime>, JsonStorage<Anime>>();
-builder.Services.AddSingleton<IDataStorage<Genre>, JsonStorage<Genre>>();
-builder.Services.AddSingleton<IDataStorage<Studio>, JsonStorage<Studio>>();
-builder.Services.AddSingleton<IDataStorage<VoiceStudio>, JsonStorage<VoiceStudio>>();
-builder.Services.AddSingleton<IDataStorage<Review>, JsonStorage<Review>>();
-builder.Services.AddSingleton<IDataStorage<Rating>, JsonStorage<Rating>>();
-builder.Services.AddSingleton<IDataStorage<UserLists>, JsonStorage<UserLists>>();
+builder.Services.AddScoped<IAnimeRepository, AnimeRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 // Реєстрація репозиторіїв
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -36,7 +29,6 @@ builder.Services.AddScoped<IRepository<Genre>, Repository<Genre>>();
 builder.Services.AddScoped<IRepository<Studio>, Repository<Studio>>();
 builder.Services.AddScoped<IRepository<VoiceStudio>, Repository<VoiceStudio>>();
 builder.Services.AddScoped<IRepository<Review>, Repository<Review>>();
-builder.Services.AddScoped<IRepository<Rating>, Repository<Rating>>();
 builder.Services.AddScoped<IRepository<UserLists>, Repository<UserLists>>();
 
 // Реєстрація сервісів
